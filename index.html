@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Business</title>
+  <title>Top Notch Floor Covering</title>
   <style>
     body { margin:0; font-family: Arial; background:#111; color:white; }
+
     nav {
       background:#000;
       padding:15px;
       display:flex;
-      justify-content:center;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    nav .left-links,
+    nav .right-links {
+      display:flex;
       gap:30px;
     }
+
     nav a {
       color:white;
       text-decoration:none;
       font-weight:bold;
     }
+
     nav a:hover { color:#00ffcc; }
+
+    .logo {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .logo img {
+      height:60px;
+      object-fit:contain;
+    }
 
     .hero {
       text-align:center;
-      padding:60px 20px;
+      padding:80px 20px;
+    }
+
+    .hero h1 {
+      font-size:42px;
+      font-weight:900;
+      letter-spacing:2px;
+      margin-bottom:10px;
     }
 
     .reviews {
@@ -36,26 +63,59 @@
       display:inline-block;
       width:250px;
     }
+
+    .gallery {
+      padding:50px 20px;
+      text-align:center;
+      background:#0d0d0d;
+    }
+
+    .gallery h2 {
+      margin-bottom:20px;
+    }
+
+    .gallery-grid {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:15px;
+    }
+
+    .gallery-grid img {
+      width:250px;
+      height:180px;
+      object-fit:cover;
+      border-radius:10px;
+      border:2px solid #222;
+    }
   </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html">Home</a>
-  <a href="products.html">Products</a>
-  <a href="reviews.html">Reviews</a>
-  <a href="booking.html">Book</a>
+  <div class="left-links">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+  </div>
+
+  <div class="logo">
+    <img src="logo.png" alt="Company Logo">
+  </div>
+
+  <div class="right-links">
+    <a href="reviews.html">Reviews</a>
+    <a href="booking.html">Book</a>
+  </div>
 </nav>
 
 <div class="hero">
-  <h1>Welcome to My Business</h1>
+  <h1>TOP NOTCH FLOOR COVERING</h1>
   <p>High quality service. Book with us today.</p>
 </div>
 
 <div class="reviews">
   <h2>Customer Reviews</h2>
 
-  <!-- EASY TO EDIT REVIEWS -->
   <div class="review-box">
     <p>"Amazing service!"</p>
     <small>- Customer Name</small>
@@ -71,6 +131,17 @@
     <small>- Customer Name</small>
   </div>
 
+</div>
+
+<div class="gallery">
+  <h2>Our Work</h2>
+
+  <div class="gallery-grid">
+    <img src="photo1.jpg" alt="Work 1">
+    <img src="photo2.jpg" alt="Work 2">
+    <img src="photo3.jpg" alt="Work 3">
+    <img src="photo4.jpg" alt="Work 4">
+  </div>
 </div>
 
 </body>
