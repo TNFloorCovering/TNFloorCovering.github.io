@@ -2,12 +2,19 @@
 <html>
 <head>
   <title>Top Notch Floor Covering</title>
-  <style>
-    body { margin:0; font-family: Arial; background:#111; color:white; }
 
+  <style>
+    body {
+      margin:0;
+      font-family: Arial;
+      background:#111;
+      color:white;
+    }
+
+    /* NAV */
     nav {
       background:#000;
-      padding:15px;
+      padding:10px 20px;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -16,16 +23,19 @@
     nav .left-links,
     nav .right-links {
       display:flex;
-      gap:30px;
+      gap:18px;
     }
 
     nav a {
       color:white;
       text-decoration:none;
       font-weight:bold;
+      font-size:14px;
     }
 
-    nav a:hover { color:#00ffcc; }
+    nav a:hover {
+      color:#00ffcc;
+    }
 
     .logo {
       display:flex;
@@ -34,36 +44,29 @@
     }
 
     .logo img {
-      height:60px;
+      height:110px;
       object-fit:contain;
     }
 
+    /* HERO */
     .hero {
       text-align:center;
-      padding:80px 20px;
+      padding:70px 20px;
     }
 
     .hero h1 {
-      font-size:42px;
+      font-size:44px;
       font-weight:900;
       letter-spacing:2px;
-      margin-bottom:10px;
+      margin-bottom:15px;
     }
 
-    .reviews {
-      padding:40px;
-      text-align:center;
+    .hero p {
+      font-size:18px;
+      font-weight:500;
     }
 
-    .review-box {
-      background:#222;
-      padding:20px;
-      margin:10px;
-      border-radius:10px;
-      display:inline-block;
-      width:250px;
-    }
-
+    /* GALLERY */
     .gallery {
       padding:50px 20px;
       text-align:center;
@@ -86,10 +89,73 @@
       height:180px;
       object-fit:cover;
       border-radius:10px;
+      cursor:pointer;
       border:2px solid #222;
+      transition:0.2s;
+    }
+
+    .gallery-grid img:hover {
+      transform:scale(1.03);
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.9);
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      z-index:999;
+    }
+
+    .lightbox img {
+      max-width:80%;
+      max-height:80%;
+      border-radius:10px;
+    }
+
+    .close {
+      position:absolute;
+      top:20px;
+      right:30px;
+      font-size:30px;
+      cursor:pointer;
+      color:white;
+    }
+
+    .nav-btn {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:40px;
+      cursor:pointer;
+      color:white;
+      user-select:none;
+    }
+
+    .prev { left:30px; }
+    .next { right:30px; }
+
+    /* BOTTOM LINK */
+    .bottom-link {
+      text-align:center;
+      padding:30px;
+    }
+
+    .bottom-link a {
+      color:#00ffcc;
+      text-decoration:none;
+      font-weight:bold;
+      font-size:18px;
     }
   </style>
 </head>
+
 <body>
 
 <nav>
@@ -110,39 +176,69 @@
 
 <div class="hero">
   <h1>TOP NOTCH FLOOR COVERING</h1>
-  <p>High quality service. Book with us today.</p>
+  <p>The name says it all! Call (501)-517-0434 for a FREE QUOTE!</p>
 </div>
 
-<div class="reviews">
-  <h2>Customer Reviews</h2>
-
-  <div class="review-box">
-    <p>"Amazing service!"</p>
-    <small>- Customer Name</small>
-  </div>
-
-  <div class="review-box">
-    <p>"Will come back again."</p>
-    <small>- Customer Name</small>
-  </div>
-
-  <div class="review-box">
-    <p>"Highly recommend."</p>
-    <small>- Customer Name</small>
-  </div>
-
-</div>
-
+<!-- GALLERY -->
 <div class="gallery">
   <h2>Our Work</h2>
 
   <div class="gallery-grid">
-    <img src="photo1.jpg" alt="Work 1">
-    <img src="photo2.jpg" alt="Work 2">
-    <img src="photo3.jpg" alt="Work 3">
-    <img src="photo4.jpg" alt="Work 4">
+    <img src="work1.jpeg" onclick="openLightbox(0)">
+    <img src="work2.jpeg" onclick="openLightbox(1)">
+    <img src="work3.jpeg" onclick="openLightbox(2)">
+    <img src="work4.jpeg" onclick="openLightbox(3)">
+    <img src="work5.jpeg" onclick="openLightbox(4)">
+    <img src="work6.jpeg" onclick="openLightbox(5)">
+    <img src="work7.jpeg" onclick="openLightbox(6)">
   </div>
 </div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
+  <img id="lightbox-img">
+  <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+</div>
+
+<!-- BOTTOM LINK -->
+<div class="bottom-link">
+  <a href="reviews.html">Gallery</a>
+</div>
+
+<script>
+  const images = [
+    "work1.jpeg",
+    "work2.jpeg",
+    "work3.jpeg",
+    "work4.jpeg",
+    "work5.jpeg",
+    "work6.jpeg",
+    "work7.jpeg"
+  ];
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function changeImage(direction) {
+    currentIndex += direction;
+
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+</script>
 
 </body>
 </html>
