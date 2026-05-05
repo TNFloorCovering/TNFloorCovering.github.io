@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gallery</title>
+
+  <style>
+    body {
+      margin:0;
+      font-family: Arial;
+      background:#111;
+      color:white;
+    }
+
+    /* NAV */
+    nav {
+      background:#000;
+      padding:15px;
+      display:flex;
+      justify-content:center;
+      gap:30px;
+    }
+
+    nav a {
+      color:white;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    nav a:hover {
+      color:#00ffcc;
+    }
+
+    /* TITLE */
+    h1 {
+      text-align:center;
+      margin:30px 0;
+      letter-spacing:2px;
+    }
+
+    /* GRID (5x5 style feel) */
+    .gallery {
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:10px;
+      padding:20px;
+    }
+
+    .gallery img {
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      border-radius:10px;
+      cursor:pointer;
+      transition:0.25s ease;
+      border:2px solid #222;
+    }
+
+    .gallery img:hover {
+      transform:scale(1.05);
+      box-shadow:0 0 15px #00ffcc55;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.92);
+      justify-content:center;
+      align-items:center;
+      z-index:999;
+    }
+
+    .lightbox img {
+      max-width:85%;
+      max-height:85%;
+      border-radius:12px;
+      box-shadow:0 0 25px #00ffcc33;
+    }
+
+    .close {
+      position:absolute;
+      top:20px;
+      right:30px;
+      font-size:30px;
+      cursor:pointer;
+      color:white;
+    }
+
+    .nav-btn {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:45px;
+      cursor:pointer;
+      user-select:none;
+      color:white;
+    }
+
+    .prev { left:25px; }
+    .next { right:25px; }
+
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="booking.html">Book</a>
+</nav>
+
+<h1>GALLERY</h1>
+
+<!-- GRID -->
+<div class="gallery">
+  <img src="work1.jpeg" onclick="openLightbox(0)">
+  <img src="work2.jpeg" onclick="openLightbox(1)">
+  <img src="work3.jpeg" onclick="openLightbox(2)">
+  <img src="work4.jpeg" onclick="openLightbox(3)">
+  <img src="work5.jpeg" onclick="openLightbox(4)">
+  <img src="work6.jpeg" onclick="openLightbox(5)">
+  <img src="work7.jpeg" onclick="openLightbox(6)">
+  <img src="work8.jpeg" onclick="openLightbox(7)">
+  <img src="work9.jpeg" onclick="openLightbox(8)">
+  <img src="work10.jpeg" onclick="openLightbox(9)">
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
+  <img id="lightbox-img">
+  <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+</div>
+
+<script>
+  const images = [
+    "work1.jpeg",
+    "work2.jpeg",
+    "work3.jpeg",
+    "work4.jpeg",
+    "work5.jpeg",
+    "work6.jpeg",
+    "work7.jpeg",
+    "work8.jpeg",
+    "work9.jpeg",
+    "work10.jpeg"
+  ];
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function changeImage(dir) {
+    currentIndex += dir;
+
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+</script>
+
+</body>
+</html>
