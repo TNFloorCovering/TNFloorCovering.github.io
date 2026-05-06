@@ -68,16 +68,32 @@
       margin:5px 0;
     }
 
-    /* SERVICES LIST */
+    /* 3 COLUMN LAYOUT (FIXED) */
+    .info-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      padding:20px 60px;
+    }
+
+    .info-left,
+    .info-center,
+    .info-right {
+      flex:1;
+    }
+
+    .info-center {
+      text-align:center;
+    }
+
+    /* SERVICES LIST (RIGHT SIDE) */
     .services {
       text-align:left;
       font-size:14px;
       font-weight:700;
-      line-height:28px;
-    }
-
-    .services span {
-      display:block;
+      line-height:30px;
+      margin-left:auto;
+      width:fit-content;
     }
 
     .services-title {
@@ -85,16 +101,6 @@
       margin-bottom:10px;
       color:#00ffcc;
       font-weight:800;
-    }
-
-    /* LAYOUT ROW */
-    .info-row {
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:80px;
-      padding:20px;
-      flex-wrap:wrap;
     }
 
     /* GALLERY */
@@ -108,7 +114,6 @@
       margin-bottom:10px;
     }
 
-    /* UPDATED TEXT STYLE */
     .gallery p {
       margin-bottom:25px;
       color:#ddd;
@@ -221,14 +226,20 @@
   <p>Call (501)-517-0434 for a FREE Quote!</p>
 </div>
 
-<!-- SERVICES -->
+<!-- INFO ROW (FIXED LAYOUT) -->
 <div class="info-row">
 
-  <div class="services">
-    <div class="services-title">Our Services</div>
-    <span>* Carpet Installation</span>
-    <span>* Carpet Repair</span>
-    <span>* Carpet Restretching</span>
+  <div class="info-left"></div>
+
+  <div class="info-center"></div>
+
+  <div class="info-right">
+    <div class="services">
+      <div class="services-title">Our Services</div>
+      <span>* Carpet Installation</span>
+      <span>* Carpet Repair</span>
+      <span>* Carpet Restretching</span>
+    </div>
   </div>
 
 </div>
@@ -263,12 +274,8 @@
 
 <script>
   const images = [
-    "work1.jpeg",
-    "work2.jpeg",
-    "work3.jpeg",
-    "work4.jpeg",
-    "work5.jpeg",
-    "work6.jpeg"
+    "work1.jpeg","work2.jpeg","work3.jpeg",
+    "work4.jpeg","work5.jpeg","work6.jpeg"
   ];
 
   let currentIndex = 0;
