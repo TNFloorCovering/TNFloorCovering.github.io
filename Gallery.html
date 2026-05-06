@@ -46,7 +46,6 @@
       background:#000;
       position:relative;
       overflow:hidden;
-      cursor:zoom-in;
     }
 
     .slideshow img {
@@ -54,16 +53,15 @@
       height:100%;
       object-fit:contain;
       border-radius:12px;
-      opacity:1;
-      transition:opacity 0.8s ease;
+      cursor:zoom-in;
+      transition:opacity 0.5s ease;
     }
 
-    /* FADE CLASS */
     .fade-out {
       opacity:0;
     }
 
-    /* ARROWS */
+    /* ARROWS MAIN */
     .slide-arrow {
       position:absolute;
       top:50%;
@@ -75,10 +73,7 @@
       padding:10px;
       background:rgba(0,0,0,0.4);
       border-radius:10px;
-    }
-
-    .slide-arrow:hover {
-      background:rgba(255,255,255,0.15);
+      z-index:2;
     }
 
     .slide-left { left:15px; }
@@ -111,7 +106,7 @@
       border:2px solid #aaa;
     }
 
-    /* FULLSCREEN VIEW (EXPANDABLE SLIDESHOW) */
+    /* FULLSCREEN */
     .fullscreen {
       display:none;
       position:fixed;
@@ -123,57 +118,56 @@
       z-index:1000;
       justify-content:center;
       align-items:center;
-      flex-direction:column;
     }
 
     .fullscreen img {
       max-width:95%;
       max-height:90%;
       object-fit:contain;
-      border-radius:12px;
     }
 
+    /* ✅ FIXED CLOSE BUTTON */
     .close {
       position:absolute;
       top:20px;
       right:25px;
-      font-size:35px;
+      font-size:30px;
       cursor:pointer;
       color:white;
-    }
 
-    /* LIGHTBOX */
-    .lightbox {
-      display:none;
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,0.92);
+      /* FIXES */
+      z-index:2000;
+      background:rgba(255,255,255,0.12);
+      width:45px;
+      height:45px;
+      display:flex;
       justify-content:center;
       align-items:center;
-      z-index:999;
+      border-radius:50%;
+      transition:0.2s ease;
     }
 
-    .lightbox img {
-      max-width:85%;
-      max-height:85%;
-      border-radius:12px;
+    .close:hover {
+      background:rgba(255,255,255,0.25);
     }
 
-    .nav-btn {
+    /* FULLSCREEN ARROWS */
+    .fs-arrow {
       position:absolute;
       top:50%;
       transform:translateY(-50%);
-      font-size:45px;
+      font-size:60px;
       cursor:pointer;
-      user-select:none;
       color:white;
+      padding:10px;
+      background:rgba(0,0,0,0.4);
+      border-radius:10px;
+      user-select:none;
+      z-index:1500;
     }
 
-    .prev { left:25px; }
-    .next { right:25px; }
+    .fs-left { left:20px; }
+    .fs-right { right:20px; }
 
   </style>
 </head>
@@ -192,40 +186,34 @@
 <!-- SLIDESHOW -->
 <div class="slideshow" id="slideshow">
   <span class="slide-arrow slide-left" onclick="changeSlide(-1)">&#10094;</span>
-
-  <img id="featured-img">
-
+  <img id="featured-img" onclick="openFullscreen()">
   <span class="slide-arrow slide-right" onclick="changeSlide(1)">&#10095;</span>
 </div>
 
 <!-- GRID -->
 <div class="gallery">
-  <img src="work1.jpeg" onclick="openLightbox(0)">
-  <img src="work2.jpeg" onclick="openLightbox(1)">
-  <img src="work3.jpeg" onclick="openLightbox(2)">
-  <img src="work4.jpeg" onclick="openLightbox(3)">
-  <img src="work5.jpeg" onclick="openLightbox(4)">
-  <img src="work6.jpeg" onclick="openLightbox(5)">
-  <img src="work7.jpeg" onclick="openLightbox(6)">
-  <img src="work8.jpeg" onclick="openLightbox(7)">
-  <img src="work9.jpeg" onclick="openLightbox(8)">
-  <img src="work10.jpeg" onclick="openLightbox(9)">
-  <img src="work11.jpeg" onclick="openLightbox(10)">
-  <img src="work12.jpeg" onclick="openLightbox(11)">
-  <img src="work13.jpeg" onclick="openLightbox(12)">
+  <img src="work1.jpeg" onclick="openFullscreen(0)">
+  <img src="work2.jpeg" onclick="openFullscreen(1)">
+  <img src="work3.jpeg" onclick="openFullscreen(2)">
+  <img src="work4.jpeg" onclick="openFullscreen(3)">
+  <img src="work5.jpeg" onclick="openFullscreen(4)">
+  <img src="work6.jpeg" onclick="openFullscreen(5)">
+  <img src="work7.jpeg" onclick="openFullscreen(6)">
+  <img src="work8.jpeg" onclick="openFullscreen(7)">
+  <img src="work9.jpeg" onclick="openFullscreen(8)">
+  <img src="work10.jpeg" onclick="openFullscreen(9)">
+  <img src="work11.jpeg" onclick="openFullscreen(10)">
+  <img src="work12.jpeg" onclick="openFullscreen(11)">
+  <img src="work13.jpeg" onclick="openFullscreen(12)">
 </div>
 
-<!-- FULLSCREEN EXPAND VIEW -->
+<!-- FULLSCREEN -->
 <div class="fullscreen" id="fullscreen">
   <span class="close" onclick="closeFullscreen()">&times;</span>
-  <img id="full-img">
-</div>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
-  <img id="lightbox-img">
-  <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
+  <span class="fs-arrow fs-left" onclick="fsChange(-1)">&#10094;</span>
+  <img id="full-img">
+  <span class="fs-arrow fs-right" onclick="fsChange(1)">&#10095;</span>
 </div>
 
 <script>
@@ -239,92 +227,56 @@
 
   const featured = document.getElementById("featured-img");
   const fullImg = document.getElementById("full-img");
+  const fullscreen = document.getElementById("fullscreen");
   const galleryImages = document.querySelectorAll(".gallery img");
-  const slideshow = document.getElementById("slideshow");
 
   featured.src = images[currentIndex];
-  highlightImage();
-
-  /* AUTO SLIDE */
-  setInterval(() => {
-    nextSlide();
-  }, 5000);
-
-  function fadeChange() {
-    featured.classList.add("fade-out");
-
-    setTimeout(() => {
-      featured.src = images[currentIndex];
-      featured.classList.remove("fade-out");
-      highlightImage();
-    }, 300);
-  }
+  highlight();
 
   function changeSlide(dir) {
     currentIndex += dir;
     if (currentIndex < 0) currentIndex = images.length - 1;
     if (currentIndex >= images.length) currentIndex = 0;
-    fadeChange();
+    updateMain();
   }
 
-  function nextSlide() {
-    currentIndex++;
-    if (currentIndex >= images.length) currentIndex = 0;
-    fadeChange();
+  function updateMain() {
+    featured.classList.add("fade-out");
+
+    setTimeout(() => {
+      featured.src = images[currentIndex];
+      featured.classList.remove("fade-out");
+      highlight();
+    }, 200);
   }
 
-  function highlightImage() {
+  function highlight() {
     galleryImages.forEach(img => img.classList.remove("active"));
     if (galleryImages[currentIndex]) {
       galleryImages[currentIndex].classList.add("active");
     }
   }
 
-  function openLightbox(index) {
+  function openFullscreen(index = currentIndex) {
     currentIndex = index;
-    document.getElementById("lightbox").style.display = "flex";
-    document.getElementById("lightbox-img").src = images[currentIndex];
-    fadeChange();
-  }
-
-  /* FULLSCREEN EXPAND */
-  slideshow.addEventListener("click", () => {
-    document.getElementById("fullscreen").style.display = "flex";
+    fullscreen.style.display = "flex";
     fullImg.src = images[currentIndex];
-  });
+    highlight();
+  }
 
   function closeFullscreen() {
-    document.getElementById("fullscreen").style.display = "none";
+    fullscreen.style.display = "none";
   }
 
-  /* LIGHTBOX NAV */
-  function changeImage(dir) {
+  function fsChange(dir) {
     currentIndex += dir;
-
     if (currentIndex < 0) currentIndex = images.length - 1;
     if (currentIndex >= images.length) currentIndex = 0;
 
-    document.getElementById("lightbox-img").src = images[currentIndex];
-    fadeChange();
+    fullImg.src = images[currentIndex];
+    featured.src = images[currentIndex];
+    highlight();
   }
-
-  /* SWIPE SUPPORT (MOBILE) */
-  let startX = 0;
-
-  slideshow.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-  });
-
-  slideshow.addEventListener("touchend", (e) => {
-    let endX = e.changedTouches[0].clientX;
-
-    if (startX - endX > 50) {
-      changeSlide(1);
-    } else if (endX - startX > 50) {
-      changeSlide(-1);
-    }
-  });
-
 </script>
 
 </body>
