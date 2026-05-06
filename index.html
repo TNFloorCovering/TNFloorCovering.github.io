@@ -23,7 +23,8 @@
     nav .left-links,
     nav .right-links {
       display:flex;
-      gap:18px;
+      gap:25px;
+      align-items:center;
     }
 
     nav a {
@@ -51,30 +52,76 @@
     /* HERO */
     .hero {
       text-align:center;
-      padding:70px 20px;
+      padding:50px 20px 20px;
     }
 
     .hero h1 {
       font-size:44px;
       font-weight:900;
       letter-spacing:2px;
-      margin-bottom:15px;
+      margin-bottom:10px;
     }
 
     .hero p {
       font-size:18px;
       font-weight:500;
+      margin:5px 0;
+    }
+
+    /* QUOTE */
+    .quote {
+      text-align:center;
+      font-size:20px;
+      font-weight:700;
+      margin-top:25px;
+      margin-bottom:10px;
+      letter-spacing:1px;
+      color:#eaeaea;
+    }
+
+    /* LAYOUT ROW (quote + services) */
+    .info-row {
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:80px;
+      padding:20px;
+      flex-wrap:wrap;
+    }
+
+    /* SERVICES LIST */
+    .services {
+      text-align:left;
+      font-size:14px;
+      font-weight:700;
+      line-height:28px;
+    }
+
+    .services span {
+      display:block;
+    }
+
+    .services-title {
+      font-size:16px;
+      margin-bottom:10px;
+      color:#00ffcc;
+      font-weight:800;
     }
 
     /* GALLERY */
     .gallery {
-      padding:50px 20px;
+      padding:40px 20px;
       text-align:center;
       background:#0d0d0d;
     }
 
     .gallery h2 {
-      margin-bottom:20px;
+      margin-bottom:10px;
+    }
+
+    .gallery p {
+      margin-bottom:25px;
+      color:#bbb;
     }
 
     .gallery-grid {
@@ -153,6 +200,7 @@
       font-weight:bold;
       font-size:18px;
     }
+
   </style>
 </head>
 
@@ -176,13 +224,30 @@
 
 <div class="hero">
   <h1>TOP NOTCH FLOOR COVERING</h1>
-  <p>"The Name Says It All"
+  <p>"The Name Says It All"</p>
   <p>Call (501)-517-0434 for a FREE Quote!</p>
+</div>
+
+<!-- QUOTE + SERVICES ROW -->
+<div class="info-row">
+
+  <div class="quote">
+    “Precision-installed flooring that transforms a house into a home—where craftsmanship meets lasting comfort in every step.”
+  </div>
+
+  <div class="services">
+    <div class="services-title">Our Services</div>
+    <span>* Carpet Installation</span>
+    <span>* Carpet Repair</span>
+    <span>* Carpet Restretching</span>
+  </div>
+
 </div>
 
 <!-- GALLERY -->
 <div class="gallery">
-  <h2>Some of our Work</h2>
+  <h2>Some of Our Work</h2>
+  <p>Recent installations showcasing quality craftsmanship and attention to detail.</p>
 
   <div class="gallery-grid">
     <img src="work1.jpeg" onclick="openLightbox(0)">
@@ -202,7 +267,6 @@
   <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
 </div>
 
-<!-- BOTTOM LINK -->
 <div class="bottom-link">
   <a href="Gallery.html">Gallery</a>
 </div>
@@ -214,7 +278,7 @@
     "work3.jpeg",
     "work4.jpeg",
     "work5.jpeg",
-    "work6.jpeg",
+    "work6.jpeg"
   ];
 
   let currentIndex = 0;
