@@ -298,9 +298,14 @@
   updateMain();
 
   /* AUTO SLIDESHOW */
-  setInterval(() => {
+setInterval(() => {
+
+  /* ONLY CYCLE IF FULLSCREEN IS CLOSED */
+  if (fullscreen.style.display !== "flex") {
     changeSlide(1);
-  }, 5000);
+  }
+
+}, 5000);
 
   /* CHANGE MAIN SLIDE */
   function changeSlide(direction) {
