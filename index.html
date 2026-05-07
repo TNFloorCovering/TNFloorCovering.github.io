@@ -137,9 +137,27 @@
       transform:scale(1.03);
     }
 
+    /* BUTTON STYLE */
+    .main-btn {
+      display:inline-block;
+      background:#00ffcc;
+      color:#000;
+      padding:14px 30px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:900;
+      transition:0.2s;
+      margin-top:35px;
+    }
+
+    .main-btn:hover {
+      transform:scale(1.05);
+      background:white;
+    }
+
     /* PROSOURCE SECTION */
     .prosource-section {
-      margin-top:60px;
+      margin-top:70px;
       text-align:center;
     }
 
@@ -163,22 +181,6 @@
       font-size:16px;
       margin-bottom:25px;
       font-weight:700;
-    }
-
-    .prosource-btn {
-      display:inline-block;
-      background:#00ffcc;
-      color:#000;
-      padding:14px 30px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:900;
-      transition:0.2s;
-    }
-
-    .prosource-btn:hover {
-      transform:scale(1.05);
-      background:white;
     }
 
     /* LIGHTBOX */
@@ -224,19 +226,6 @@
     .prev { left:30px; }
     .next { right:30px; }
 
-    /* BOTTOM LINK */
-    .bottom-link {
-      text-align:center;
-      padding:30px;
-    }
-
-    .bottom-link a {
-      color:#00ffcc;
-      text-decoration:none;
-      font-weight:bold;
-      font-size:18px;
-    }
-
   </style>
 </head>
 
@@ -280,6 +269,7 @@
 
 <!-- GALLERY -->
 <div class="gallery">
+
   <h2>Some of Our Work</h2>
 
   <p><strong>High-quality carpet installation built on precision, durability, and pride in every detail.</strong></p>
@@ -292,6 +282,11 @@
     <img src="work5.jpeg" onclick="openLightbox(4)">
     <img src="work6.jpeg" onclick="openLightbox(5)">
   </div>
+
+  <!-- GALLERY BUTTON -->
+  <a class="main-btn" href="Gallery.html">
+    View Full Gallery
+  </a>
 
   <!-- PROSOURCE SECTION -->
   <div class="prosource-section">
@@ -306,7 +301,7 @@
       Browse thousands of carpet styles, textures, and colors.
     </div>
 
-    <a class="prosource-btn"
+    <a class="main-btn"
        href="https://www.prosourcewholesale.com/products/flooring/carpet"
        target="_blank">
        View Carpets
@@ -322,10 +317,6 @@
   <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
   <img id="lightbox-img">
   <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
-</div>
-
-<div class="bottom-link">
-  <a href="Gallery.html">Gallery</a>
 </div>
 
 <script>
