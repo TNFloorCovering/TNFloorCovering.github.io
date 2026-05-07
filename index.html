@@ -10,11 +10,28 @@
       background:#111;
       color:white;
 
-      /* CUSTOM CARPET CURSOR */
-      cursor: url("carpet-cursor.png"), auto;
+      /* hide default cursor */
+      cursor: none;
     }
 
-    /* NAV (FIXED CENTERED STRUCTURE) */
+    /* CUSTOM CURSOR ELEMENT */
+    #carpetCursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      background: url("carpet-cursor.png") no-repeat center/contain;
+      pointer-events: none;
+      z-index: 9999;
+
+      /* animation feel */
+      transform: translate(-50%, -50%) rotate(0deg);
+      transition: transform 0.08s linear;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+    }
+
+    /* NAV */
     nav {
       background:#000;
       padding:10px 40px;
@@ -30,13 +47,8 @@
       align-items:center;
     }
 
-    .left-links {
-      justify-content:flex-end;
-    }
-
-    .right-links {
-      justify-content:flex-start;
-    }
+    .left-links { justify-content:flex-end; }
+    .right-links { justify-content:flex-start; }
 
     nav a {
       color:white;
@@ -45,9 +57,7 @@
       font-size:14px;
     }
 
-    nav a:hover {
-      color:#00ffcc;
-    }
+    nav a:hover { color:#00ffcc; }
 
     .logo {
       display:flex;
@@ -60,7 +70,6 @@
       object-fit:contain;
     }
 
-    /* HERO WRAPPER (TITLE + SERVICES SIDE BY SIDE) */
     .hero {
       display:flex;
       justify-content:center;
@@ -84,7 +93,6 @@
       font-weight:500;
     }
 
-    /* SERVICES NEXT TO TITLE */
     .services {
       text-align:left;
       font-size:14px;
@@ -99,23 +107,10 @@
       font-weight:800;
     }
 
-    /* GALLERY */
     .gallery {
       padding:40px 20px;
       text-align:center;
       background:#0d0d0d;
-    }
-
-    .gallery h2 {
-      margin-bottom:10px;
-    }
-
-    .gallery p {
-      margin-bottom:25px;
-      color:#ddd;
-      font-weight:800;
-      font-size:15px;
-      letter-spacing:0.5px;
     }
 
     .gallery-grid {
@@ -139,7 +134,6 @@
       transform:scale(1.03);
     }
 
-    /* LIGHTBOX */
     .lightbox {
       display:none;
       position:fixed;
@@ -182,7 +176,6 @@
     .prev { left:30px; }
     .next { right:30px; }
 
-    /* BOTTOM LINK */
     .bottom-link {
       text-align:center;
       padding:30px;
@@ -200,6 +193,9 @@
 
 <body>
 
+<!-- CUSTOM CURSOR -->
+<div id="carpetCursor"></div>
+
 <nav>
   <div class="left-links">
     <a href="index.html">Home</a>
@@ -207,7 +203,7 @@
   </div>
 
   <div class="logo">
-    <img src="logo.png" alt="Company Logo">
+    <img src="logo.png" alt="Logo">
   </div>
 
   <div class="right-links">
@@ -216,9 +212,7 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
-
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <p>"The Name Says It All"</p>
@@ -227,37 +221,23 @@
 
   <div class="services">
     <div class="services-title">Our Services</div>
-
     <span>* Carpet Installation</span><br>
     <span>* Carpet Repair</span><br>
     <span>* Carpet Restretching</span>
-
   </div>
-
 </div>
 
-<!-- GALLERY -->
 <div class="gallery">
   <h2>Some of Our Work</h2>
 
-  <p><strong>High-quality carpet installation built on precision, durability, and pride in every detail.</strong></p>
-
   <div class="gallery-grid">
-    <img src="work1.jpeg" onclick="openLightbox(0)">
-    <img src="work2.jpeg" onclick="openLightbox(1)">
-    <img src="work3.jpeg" onclick="openLightbox(2)">
-    <img src="work4.jpeg" onclick="openLightbox(3)">
-    <img src="work5.jpeg" onclick="openLightbox(4)">
-    <img src="work6.jpeg" onclick="openLightbox(5)">
+    <img src="work1.jpeg">
+    <img src="work2.jpeg">
+    <img src="work3.jpeg">
+    <img src="work4.jpeg">
+    <img src="work5.jpeg">
+    <img src="work6.jpeg">
   </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <span class="close" onclick="closeLightbox()">&times;</span>
-  <span class="nav-btn prev" onclick="changeImage(-1)">&#10094;</span>
-  <img id="lightbox-img">
-  <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
 </div>
 
 <div class="bottom-link">
@@ -265,31 +245,34 @@
 </div>
 
 <script>
-  const images = [
-    "work1.jpeg","work2.jpeg","work3.jpeg",
-    "work4.jpeg","work5.jpeg","work6.jpeg"
-  ];
+  const cursor = document.getElementById("carpetCursor");
 
-  let currentIndex = 0;
+  let mouseX = 0;
+  let mouseY = 0;
 
-  function openLightbox(index) {
-    currentIndex = index;
-    document.getElementById("lightbox").style.display = "flex";
-    document.getElementById("lightbox-img").src = images[currentIndex];
+  let cursorX = 0;
+  let cursorY = 0;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateCursor() {
+    // smooth follow (lerp effect)
+    cursorX += (mouseX - cursorX) * 0.2;
+    cursorY += (mouseY - cursorY) * 0.2;
+
+    // subtle tilt based on movement
+    let rotate = (mouseX - cursorX) * 0.2;
+
+    cursor.style.transform =
+      `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%) rotate(${rotate}deg)`;
+
+    requestAnimationFrame(animateCursor);
   }
 
-  function closeLightbox() {
-    document.getElementById("lightbox").style.display = "none";
-  }
-
-  function changeImage(direction) {
-    currentIndex += direction;
-
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-
-    document.getElementById("lightbox-img").src = images[currentIndex];
-  }
+  animateCursor();
 </script>
 
 </body>
