@@ -620,7 +620,7 @@ function handlePay(method) {
     Venmo     → https://venmo.com/u/YourUsername?txn=pay&amount={amount}&note=TNFC+Donation
   */
   const urls = {
-    cashapp: `https://cash.app/$TNFC_Carpets/${amount.toFixed(2)}`,
+    cashapp: `https://cash.app/$bray0/${amount.toFixed(2)}`,
     venmo:   `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amount.toFixed(2)}&note=${encodeURIComponent('TNFC Donation - ' + msg)}`
   };
 
