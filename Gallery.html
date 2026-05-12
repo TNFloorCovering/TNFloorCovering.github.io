@@ -290,6 +290,7 @@
   ];
 
   let currentIndex = 0;
+  let autoCycleTimer = null;
 
   const featured = document.getElementById("featured-img");
   const fullscreen = document.getElementById("fullscreen");
@@ -299,17 +300,36 @@
   /* INITIAL LOAD */
   updateMain();
 
-  /* AUTO SLIDESHOW */
-setInterval(() => {
-
-  /* ONLY CYCLE IF FULLSCREEN IS CLOSED */
-  if (fullscreen.style.display !== "flex") {
-    changeSlide(1);
+  /* START AUTO SLIDESHOW */
+  function startAutoCycle() {
+    stopAutoCycle();
+    autoCycleTimer = setInterval(() => {
+      if (fullscreen.style.display !== "flex") {
+        changeSlide(1);
+      }
+    }, 5000);
   }
 
-}, 5000);
+  /* STOP AUTO SLIDESHOW */
+  function stopAutoCycle() {
+    if (autoCycleTimer) {
+      clearInterval(autoCycleTimer);
+      autoCycleTimer = null;
+    }
+  }
 
-  /* CHANGE MAIN SLIDE */
+  /* PAUSE THEN RESUME (used when thumbnail is clicked) */
+  function pauseAndResume() {
+    stopAutoCycle();
+    setTimeout(() => {
+      startAutoCycle();
+    }, 10000);
+  }
+
+  /* BEGIN CYCLING */
+  startAutoCycle();
+
+  /* CHANGE MAIN SLIDE (arrows) */
   function changeSlide(direction) {
     currentIndex += direction;
 
@@ -324,10 +344,11 @@ setInterval(() => {
     updateMain();
   }
 
-  /* CLICK SMALL IMAGE */
+  /* CLICK SMALL IMAGE — pauses auto-cycle so the chosen photo stays put */
   function setSlide(index) {
     currentIndex = index;
     updateMain();
+    pauseAndResume();
   }
 
   /* UPDATE MAIN IMAGE */
