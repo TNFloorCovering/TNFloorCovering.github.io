@@ -227,22 +227,75 @@
     .next { right:30px; }
 
     /* DONATION BANNER */
+    .donation-banner-wrap {
+      background:#0a0a0a;
+      padding: 40px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* rolling carpet fiber lines behind banner */
+    .donation-banner-wrap::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 6px,
+        rgba(0,255,204,0.03) 6px,
+        rgba(0,255,204,0.03) 7px
+      );
+      animation: carpet-roll 6s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes carpet-roll {
+      0%   { background-position-x: 0px; }
+      100% { background-position-x: 100px; }
+    }
+
     .donation-banner {
       display:block;
       width:100%;
+      max-width:700px;
       line-height:0;
       cursor:pointer;
+      position:relative;
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow: 0 0 0 2px rgba(0,255,204,0.15);
+      animation: banner-breathe 4s ease-in-out infinite;
     }
 
+    @keyframes banner-breathe {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(0,255,204,0.15), 0 8px 40px rgba(0,0,0,0.6); }
+      50%       { box-shadow: 0 0 0 2px rgba(0,255,204,0.45), 0 8px 60px rgba(0,255,204,0.08); }
+    }
+
+    /* unroll effect on load */
     .donation-banner img {
       width:100%;
       display:block;
       object-fit:cover;
-      transition: opacity 0.2s ease;
+      max-height:160px;
+      border-radius:8px;
+      transform-origin: top center;
+      animation: unroll 1.1s cubic-bezier(0.22,1,0.36,1) both;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    @keyframes unroll {
+      0%   { clip-path: inset(0 0 100% 0); transform: scaleY(0.4); opacity:0; }
+      100% { clip-path: inset(0 0 0% 0);   transform: scaleY(1);   opacity:1; }
     }
 
     .donation-banner:hover img {
-      opacity:0.85;
+      opacity:0.88;
+      transform: scale(1.02);
     }
 
   </style>
@@ -340,9 +393,11 @@
 </div>
 
 <!-- DONATION BANNER -->
-<a href="donations.html" class="donation-banner">
-  <img src="dono.png" alt="Support TNFC — Click to Donate">
-</a>
+<div class="donation-banner-wrap">
+  <a href="donations.html" class="donation-banner">
+    <img src="dono.png" alt="Support TNFC — Click to Donate">
+  </a>
+</div>
 
 <script>
   const images = [
