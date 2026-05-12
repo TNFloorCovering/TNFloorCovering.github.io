@@ -226,6 +226,25 @@
     .prev { left:30px; }
     .next { right:30px; }
 
+    /* DONATION BANNER */
+    .donation-banner {
+      display:block;
+      width:100%;
+      line-height:0;
+      cursor:pointer;
+    }
+
+    .donation-banner img {
+      width:100%;
+      display:block;
+      object-fit:cover;
+      transition: opacity 0.2s ease;
+    }
+
+    .donation-banner:hover img {
+      opacity:0.85;
+    }
+
   </style>
 </head>
 
@@ -296,8 +315,8 @@
     </div>
 
     <a href="https://www.prosourcewholesale.com" target="_blank">
-  <img src="prologo.png" alt="ProSource Logo" class="prosource-logo">
-</a>
+      <img src="prologo.png" alt="ProSource Logo" class="prosource-logo">
+    </a>
     <div class="prosource-text">
       Browse thousands of carpet styles, textures, and colors.
     </div>
@@ -319,6 +338,11 @@
   <img id="lightbox-img">
   <span class="nav-btn next" onclick="changeImage(1)">&#10095;</span>
 </div>
+
+<!-- DONATION BANNER -->
+<a href="donations.html" class="donation-banner">
+  <img src="dono.png" alt="Support TNFC — Click to Donate">
+</a>
 
 <script>
   const images = [
