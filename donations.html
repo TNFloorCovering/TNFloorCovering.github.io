@@ -47,10 +47,7 @@
     padding: 60px 24px 80px;
   }
 
-  .brand {
-    text-align: center;
-    margin-bottom: 48px;
-  }
+  .brand { text-align: center; margin-bottom: 48px; }
 
   .logo-ring {
     display: inline-flex;
@@ -60,7 +57,6 @@
     border-radius: 50%;
     border: 1.5px solid var(--gold);
     margin-bottom: 16px;
-    position: relative;
     animation: ring-pulse 4s ease-in-out infinite;
   }
 
@@ -92,13 +88,6 @@
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 4px;
-  }
-
-  .tagline {
-    font-size: 14px;
-    color: var(--muted);
-    font-style: italic;
-    margin-top: 8px;
   }
 
   .card {
@@ -156,21 +145,13 @@
     letter-spacing: 0.5px;
   }
 
-  .pill:hover {
-    border-color: var(--gold);
-    color: var(--gold-light);
-    background: rgba(201,168,76,0.07);
-  }
-
-  .pill.active {
+  .pill:hover, .pill.active {
     background: rgba(201,168,76,0.12);
     border-color: var(--gold);
     color: var(--gold-light);
   }
 
-  .input-group {
-    margin-bottom: 16px;
-  }
+  .input-group { margin-bottom: 16px; }
 
   label {
     display: block;
@@ -181,9 +162,7 @@
     margin-bottom: 8px;
   }
 
-  .input-wrap {
-    position: relative;
-  }
+  .input-wrap { position: relative; }
 
   .prefix {
     position: absolute;
@@ -213,29 +192,16 @@
     -webkit-appearance: none;
   }
 
-  input[type="number"] {
-    padding-left: 32px;
-  }
+  input[type="number"] { padding-left: 32px; }
 
   input:focus, textarea:focus {
     border-color: var(--gold);
     background: rgba(201,168,76,0.04);
   }
 
-  textarea {
-    resize: none;
-    height: 88px;
-    line-height: 1.6;
-  }
+  textarea { resize: none; height: 88px; line-height: 1.6; }
 
-  input::placeholder, textarea::placeholder {
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .pay-section {
-    margin-top: 8px;
-  }
+  input::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
 
   .pay-label {
     font-size: 11px;
@@ -250,9 +216,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 14px;
   }
 
+  /* KEY FIX: <a> tags so Safari treats navigation as a direct user gesture */
   .pay-btn {
     display: flex;
     align-items: center;
@@ -260,160 +226,56 @@
     gap: 10px;
     padding: 15px 12px;
     border-radius: 2px;
-    border: 1px solid transparent;
     font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
     letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.15s ease;
   }
 
-  .pay-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.06);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
+  .pay-btn:active { opacity: 0.75; }
+  .btn-cashapp { background: #00D632; color: #000; }
+  .btn-venmo   { background: #3D95CE; color: #fff; }
+  .pay-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
 
-  .pay-btn:hover::after { opacity: 1; }
-
-  .btn-cashapp {
-    background: #00D632;
-    color: #000;
-  }
-
-  .btn-venmo {
-    background: #3D95CE;
-    color: #fff;
-  }
-
-  .btn-cashapp svg, .btn-venmo svg {
-    width: 20px; height: 20px;
-    flex-shrink: 0;
-  }
-
-  .link-info {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 16px 18px;
-    margin-top: 14px;
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  .link-info code {
-    font-family: 'DM Mono', 'Courier New', monospace;
-    font-size: 11.5px;
-    color: var(--gold);
-    background: rgba(201,168,76,0.08);
-    padding: 1px 6px;
-    border-radius: 2px;
-  }
-
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 8px 0 16px;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 0.5px;
-    background: var(--border);
-  }
-
-  .confirm-overlay {
+  .error-msg {
+    font-size: 12px;
+    color: #ff4466;
+    margin-top: 8px;
     display: none;
+  }
+  .error-msg.show { display: block; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+  }
+  .shake { animation: shake 0.35s ease; }
+
+  .toast {
     position: fixed;
-    inset: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.85);
-    align-items: center;
-    justify-content: center;
-  }
-
-  .confirm-overlay.show {
-    display: flex;
-  }
-
-  .confirm-box {
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
     background: var(--surface);
     border: 1px solid var(--gold);
+    color: var(--text);
+    font-size: 13px;
+    padding: 13px 22px;
     border-radius: 2px;
-    padding: 40px 36px;
-    max-width: 380px;
-    width: 90%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 200;
+    max-width: 88vw;
     text-align: center;
-    animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    line-height: 1.5;
   }
-
-  @keyframes pop-in {
-    from { transform: scale(0.85); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
-  .confirm-icon {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: rgba(201,168,76,0.12);
-    border: 1.5px solid var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 24px;
-    animation: ring-pulse 3s infinite;
-  }
-
-  .confirm-box h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 3px;
-    color: var(--cream);
-    margin-bottom: 8px;
-  }
-
-  .confirm-box p {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-
-  .confirm-box .amount-display {
-    font-size: 42px;
-    font-family: 'Bebas Neue', sans-serif;
-    color: var(--gold);
-    letter-spacing: 2px;
-    margin-bottom: 4px;
-  }
-
-  .btn-close {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 10px 24px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-close:hover { border-color: var(--gold); color: var(--gold); }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   .footer-note {
     text-align: center;
@@ -432,9 +294,7 @@
 <div class="page">
 
   <div class="brand">
-    <div class="logo-ring">
-      <span class="logo-text">TNFC</span>
-    </div>
+    <div class="logo-ring"><span class="logo-text">TNFC</span></div>
     <div class="sub">Top Notch Floor Covering</div>
     <h1>Support<br>Our Crew</h1>
   </div>
@@ -454,6 +314,7 @@
         <span class="prefix">$</span>
         <input type="number" id="custom-amount" placeholder="0.00" min="1" step="1">
       </div>
+      <div class="error-msg" id="amount-error">Please select or enter an amount first.</div>
     </div>
 
     <div class="input-group">
@@ -462,7 +323,7 @@
     </div>
 
     <div class="input-group">
-      <label for="donor-message">Leave a message <span style="color:var(--muted); font-style:italic; letter-spacing:0; text-transform:none; font-size:10px;">(optional)</span></label>
+      <label for="donor-message">Leave a message <span style="color:var(--muted);font-style:italic;letter-spacing:0;text-transform:none;font-size:10px;">(optional)</span></label>
       <textarea id="donor-message" placeholder="Say something kind for the crew…"></textarea>
     </div>
   </div>
@@ -470,33 +331,41 @@
   <div class="card">
     <span class="pay-label">Send your donation via</span>
     <div class="pay-btns">
-      <button class="pay-btn btn-cashapp" onclick="handlePay('cashapp')">
-        <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#00D632"/><path d="M17.6 8l.7 2.6c1.5.4 2.7 1.1 3.5 2l-2 1.7c-.6-.7-1.5-1.2-2.5-1.4l-.3-.1c-1.1-.2-2.1 0-2.5.6-.2.3-.2.6 0 .9.2.3.6.5 1.3.7l1.5.4c1.4.4 2.4.9 3 1.7.6.8.7 1.8.3 2.9-.5 1.4-1.7 2.3-3.3 2.6l.7 2.4h-2.2l-.6-2.3c-1.7-.4-3.1-1.3-4-2.5l2-1.7c.7 1 1.8 1.6 3 1.8l.4.1c1.2.2 2.2-.1 2.7-.7.2-.3.2-.7 0-1-.2-.3-.7-.6-1.5-.8l-1.4-.4c-1.3-.4-2.2-.9-2.8-1.7-.6-.8-.7-1.8-.3-2.9.5-1.3 1.6-2.2 3.1-2.5L14.4 8H17.6Z" fill="black"/></svg>
+
+      <!--
+        SAFARI FIX EXPLAINED:
+        Buttons are real <a> tags. The href is set synchronously on touchstart/mousedown —
+        before the click event fires. This is the only pattern Safari iOS allows for
+        programmatically setting a navigation destination. Any async delay (setTimeout,
+        Promise, etc.) causes Safari to block or show "address is invalid".
+      -->
+
+      <a id="btn-cashapp" class="pay-btn btn-cashapp" href="#" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#00D632"/>
+          <path d="M17.6 8l.7 2.6c1.5.4 2.7 1.1 3.5 2l-2 1.7c-.6-.7-1.5-1.2-2.5-1.4l-.3-.1c-1.1-.2-2.1 0-2.5.6-.2.3-.2.6 0 .9.2.3.6.5 1.3.7l1.5.4c1.4.4 2.4.9 3 1.7.6.8.7 1.8.3 2.9-.5 1.4-1.7 2.3-3.3 2.6l.7 2.4h-2.2l-.6-2.3c-1.7-.4-3.1-1.3-4-2.5l2-1.7c.7 1 1.8 1.6 3 1.8l.4.1c1.2.2 2.2-.1 2.7-.7.2-.3.2-.7 0-1-.2-.3-.7-.6-1.5-.8l-1.4-.4c-1.3-.4-2.2-.9-2.8-1.7-.6-.8-.7-1.8-.3-2.9.5-1.3 1.6-2.2 3.1-2.5L14.4 8H17.6Z" fill="black"/>
+        </svg>
         Cash App
-      </button>
-      <button class="pay-btn btn-venmo" onclick="handlePay('venmo')">
-        <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#3D95CE"/><path d="M22 9.5c.5.8.7 1.7.7 2.8 0 3.5-3 8.1-5.4 11.2h-5.6l-2.2-12 5-.5.9 7.3c.9-1.4 1.9-3.7 1.9-5.2 0-.8-.1-1.4-.4-1.9L22 9.5Z" fill="white"/></svg>
+      </a>
+
+      <a id="btn-venmo" class="pay-btn btn-venmo" href="#" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#3D95CE"/>
+          <path d="M22 9.5c.5.8.7 1.7.7 2.8 0 3.5-3 8.1-5.4 11.2h-5.6l-2.2-12 5-.5.9 7.3c.9-1.4 1.9-3.7 1.9-5.2 0-.8-.1-1.4-.4-1.9L22 9.5Z" fill="white"/>
+        </svg>
         Venmo
-      </button>
+      </a>
+
     </div>
   </div>
 
   <p class="footer-note">TNFC — professional carpet installation and repair.<br>Your generosity keeps our crew equipped and motivated. 🙏</p>
-
 </div>
 
-<div class="confirm-overlay" id="confirm">
-  <div class="confirm-box">
-    <div class="confirm-icon">✦</div>
-    <div class="amount-display" id="conf-amount">$25</div>
-    <h2>Thank You</h2>
-    <p id="conf-msg">Redirecting you to complete your donation…<br>The TNFC crew appreciates your support.</p>
-    <button class="btn-close" onclick="closeConfirm()">Close</button>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* ---- CARPET FIBER CANVAS ---- */
+/* ---- CARPET CANVAS ---- */
 const canvas = document.getElementById('carpet-canvas');
 const ctx = canvas.getContext('2d');
 let W, H, fibers = [];
@@ -504,25 +373,17 @@ let W, H, fibers = [];
 function resize() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
-  initFibers();
-}
-
-function Fiber() {
-  this.x = Math.random() * W;
-  this.y = Math.random() * H;
-  this.len = 6 + Math.random() * 18;
-  this.angle = Math.random() * Math.PI * 2;
-  this.speed = 0.003 + Math.random() * 0.008;
-  this.wobble = Math.random() * Math.PI * 2;
-  this.wobbleSpeed = 0.01 + Math.random() * 0.02;
-  this.hue = 35 + Math.random() * 20;
-  this.alpha = 0.3 + Math.random() * 0.5;
-  this.drift = (Math.random() - 0.5) * 0.4;
-}
-
-function initFibers() {
-  const count = Math.floor((W * H) / 3000);
-  fibers = Array.from({ length: count }, () => new Fiber());
+  fibers = Array.from({ length: Math.floor((W * H) / 3000) }, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    len: 6 + Math.random() * 18,
+    angle: Math.random() * Math.PI * 2,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.01 + Math.random() * 0.02,
+    hue: 35 + Math.random() * 20,
+    alpha: 0.3 + Math.random() * 0.5,
+    drift: (Math.random() - 0.5) * 0.4
+  }));
 }
 
 function drawFibers() {
@@ -530,28 +391,22 @@ function drawFibers() {
   for (const f of fibers) {
     f.wobble += f.wobbleSpeed;
     f.angle += f.drift * 0.005;
-    const curAngle = f.angle + Math.sin(f.wobble) * 0.15;
-    const x2 = f.x + Math.cos(curAngle) * f.len;
-    const y2 = f.y + Math.sin(curAngle) * f.len;
-
+    const a = f.angle + Math.sin(f.wobble) * 0.15;
     ctx.beginPath();
     ctx.moveTo(f.x, f.y);
-    ctx.lineTo(x2, y2);
-    ctx.strokeStyle = `hsla(${f.hue}, 60%, 55%, ${f.alpha})`;
+    ctx.lineTo(f.x + Math.cos(a) * f.len, f.y + Math.sin(a) * f.len);
+    ctx.strokeStyle = `hsla(${f.hue},60%,55%,${f.alpha})`;
     ctx.lineWidth = 0.8;
     ctx.lineCap = 'round';
     ctx.stroke();
-
     f.y += Math.sin(f.angle) * 0.12;
     f.x += Math.cos(f.angle) * 0.05;
     if (f.x < -20 || f.x > W + 20 || f.y < -20 || f.y > H + 20) {
-      f.x = Math.random() * W;
-      f.y = Math.random() * H;
+      f.x = Math.random() * W; f.y = Math.random() * H;
     }
   }
   requestAnimationFrame(drawFibers);
 }
-
 window.addEventListener('resize', resize);
 resize();
 drawFibers();
@@ -565,57 +420,78 @@ document.querySelectorAll('.pill').forEach(btn => {
     btn.classList.add('active');
     selectedAmount = parseInt(btn.dataset.val);
     document.getElementById('custom-amount').value = '';
+    document.getElementById('amount-error').classList.remove('show');
   });
 });
 
-document.getElementById('custom-amount').addEventListener('input', function() {
+document.getElementById('custom-amount').addEventListener('input', function () {
   document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
   selectedAmount = parseFloat(this.value) || 0;
 });
 
-/* ---- PAYMENT HANDLERS ---- */
+/* ---- HELPERS ---- */
 function getAmount() {
-  const custom = document.getElementById('custom-amount').value;
-  return custom ? parseFloat(custom) : selectedAmount;
+  const v = document.getElementById('custom-amount').value;
+  return v ? parseFloat(v) : selectedAmount;
 }
 
-function handlePay(method) {
-  const amount = getAmount();
-  const name = document.getElementById('donor-name').value.trim() || 'Anonymous';
-  const msg = document.getElementById('donor-message').value.trim() || 'TNFC Donation';
-
-  if (!amount || amount < 1) {
-    document.getElementById('custom-amount').focus();
-    return;
-  }
-
-  document.getElementById('conf-amount').textContent = '$' + amount.toFixed(2);
-  document.getElementById('conf-msg').textContent =
-    `Thanks, ${name}! Redirecting to ${method === 'cashapp' ? 'Cash App' : 'Venmo'} to complete your $${amount.toFixed(2)} donation.`;
-
-  document.getElementById('confirm').classList.add('show');
-
+function buildUrl(method, amount) {
+  const msg  = document.getElementById('donor-message').value.trim() || 'TNFC Donation';
   const note = encodeURIComponent('TNFC Donation - ' + msg);
   const amt  = amount.toFixed(2);
+  return method === 'cashapp'
+    ? `https://cash.app/$bray0/${amt}`
+    : `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
+}
 
-  // FIX: Replaced cashapp:// and venmo:// custom URL schemes with universal https links.
-  // Custom schemes like cashapp:// are blocked by Safari on iOS ("address is invalid").
-  // Universal Links (https://cash.app, https://venmo.com) let iOS open the native app
-  // automatically if installed, or fall back to the website if not — no errors either way.
-  let url;
-  if (method === 'cashapp') {
-    url = `https://cash.app/$bray0/${amt}`;
-  } else {
-    url = `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function showError() {
+  const err = document.getElementById('amount-error');
+  err.classList.add('show', 'shake');
+  setTimeout(() => err.classList.remove('shake'), 400);
+  document.getElementById('custom-amount').focus();
+}
+
+/* ---- SAFARI-SAFE LINK WIRING ----
+   The href MUST be set synchronously during touchstart/mousedown — before the
+   browser fires the click event. Setting href inside click (even synchronously)
+   is too late for Safari's popup/navigation security policy.
+   Using <a target="_blank"> also prevents Safari from blocking it as a popup.
+*/
+function wireBtn(id, method) {
+  const el = document.getElementById(id);
+
+  function prepare(e) {
+    const amount = getAmount();
+    if (!amount || amount < 1) {
+      e.preventDefault();
+      showError();
+      return;
+    }
+    el.href = buildUrl(method, amount);
   }
 
-  // Open in new tab so Safari doesn't block the delayed programmatic navigation
-  setTimeout(() => { window.open(url, '_blank'); }, 1800);
+  el.addEventListener('touchstart', prepare, { passive: false });
+  el.addEventListener('mousedown',  prepare);
+
+  el.addEventListener('click', (e) => {
+    const amount = getAmount();
+    if (!amount || amount < 1) { e.preventDefault(); return; }
+    const name = document.getElementById('donor-name').value.trim() || 'Anonymous';
+    showToast(`Thanks, ${name}! Opening ${method === 'cashapp' ? 'Cash App' : 'Venmo'}…`);
+  });
 }
 
-function closeConfirm() {
-  document.getElementById('confirm').classList.remove('show');
-}
+wireBtn('btn-cashapp', 'cashapp');
+wireBtn('btn-venmo',   'venmo');
 </script>
 </body>
 </html>
