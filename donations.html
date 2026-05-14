@@ -30,7 +30,6 @@
     overflow-x: hidden;
   }
 
-  /* ---- ANIMATED CARPET CANVAS ---- */
   #carpet-canvas {
     position: fixed;
     top: 0; left: 0;
@@ -40,7 +39,6 @@
     pointer-events: none;
   }
 
-  /* ---- LAYOUT ---- */
   .page {
     position: relative;
     z-index: 1;
@@ -49,7 +47,6 @@
     padding: 60px 24px 80px;
   }
 
-  /* ---- HEADER ---- */
   .brand {
     text-align: center;
     margin-bottom: 48px;
@@ -104,7 +101,6 @@
     margin-top: 8px;
   }
 
-  /* ---- CARD ---- */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -129,7 +125,6 @@
     50% { opacity: 1; transform: scaleX(1); }
   }
 
-  /* ---- AMOUNT PILLS ---- */
   .section-label {
     font-size: 11px;
     letter-spacing: 2.5px;
@@ -173,7 +168,6 @@
     color: var(--gold-light);
   }
 
-  /* ---- INPUTS ---- */
   .input-group {
     margin-bottom: 16px;
   }
@@ -239,7 +233,6 @@
     font-style: italic;
   }
 
-  /* ---- PAYMENT BUTTONS ---- */
   .pay-section {
     margin-top: 8px;
   }
@@ -304,7 +297,6 @@
     flex-shrink: 0;
   }
 
-  /* ---- LINK INSTRUCTIONS ---- */
   .link-info {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -325,7 +317,6 @@
     border-radius: 2px;
   }
 
-  /* ---- DIVIDER ---- */
   .divider {
     display: flex;
     align-items: center;
@@ -343,7 +334,6 @@
     background: var(--border);
   }
 
-  /* ---- CONFIRM STATE ---- */
   .confirm-overlay {
     display: none;
     position: fixed;
@@ -425,7 +415,6 @@
   }
   .btn-close:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* ---- FOOTER ---- */
   .footer-note {
     text-align: center;
     font-size: 12px;
@@ -450,7 +439,6 @@
     <h1>Support<br>Our Crew</h1>
   </div>
 
-  <!-- AMOUNT CARD -->
   <div class="card">
     <span class="section-label">Choose an amount</span>
     <div class="pill-row" id="pills">
@@ -479,7 +467,6 @@
     </div>
   </div>
 
-  <!-- PAYMENT CARD -->
   <div class="card">
     <span class="pay-label">Send your donation via</span>
     <div class="pay-btns">
@@ -498,7 +485,6 @@
 
 </div>
 
-<!-- CONFIRM OVERLAY -->
 <div class="confirm-overlay" id="confirm">
   <div class="confirm-box">
     <div class="confirm-icon">✦</div>
@@ -593,10 +579,6 @@ function getAmount() {
   return custom ? parseFloat(custom) : selectedAmount;
 }
 
-function isMobile() {
-  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
 function handlePay(method) {
   const amount = getAmount();
   const name = document.getElementById('donor-name').value.trim() || 'Anonymous';
@@ -616,21 +598,19 @@ function handlePay(method) {
   const note = encodeURIComponent('TNFC Donation - ' + msg);
   const amt  = amount.toFixed(2);
 
+  // FIX: Replaced cashapp:// and venmo:// custom URL schemes with universal https links.
+  // Custom schemes like cashapp:// are blocked by Safari on iOS ("address is invalid").
+  // Universal Links (https://cash.app, https://venmo.com) let iOS open the native app
+  // automatically if installed, or fall back to the website if not — no errors either way.
   let url;
   if (method === 'cashapp') {
-    // Deep link opens Cash App on mobile; falls back to web on desktop
-    url = isMobile()
-      ? `cashapp://cash.app/$bray0/${amt}`
-      : `https://cash.app/$bray0/${amt}`;
+    url = `https://cash.app/$bray0/${amt}`;
   } else {
-    // Deep link opens Venmo app on mobile; falls back to web on desktop
-    url = isMobile()
-      ? `venmo://paycharge?txn=pay&recipients=TNFCarpets&amount=${amt}&note=${note}`
-      : `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
+    url = `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
   }
 
-  // Use location.href so mobile browsers don't block the navigation
-  setTimeout(() => { window.location.href = url; }, 1800);
+  // Open in new tab so Safari doesn't block the delayed programmatic navigation
+  setTimeout(() => { window.open(url, '_blank'); }, 1800);
 }
 
 function closeConfirm() {
