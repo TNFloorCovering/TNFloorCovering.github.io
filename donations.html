@@ -434,8 +434,6 @@
     line-height: 1.7;
     font-style: italic;
   }
-
-  /* ---- FIBER ANIMATION (canvas) ---- */
 </style>
 </head>
 <body>
@@ -494,8 +492,6 @@
         Venmo
       </button>
     </div>
-
-
   </div>
 
   <p class="footer-note">TNFC — professional carpet installation and repair.<br>Your generosity keeps our crew equipped and motivated. 🙏</p>
@@ -597,6 +593,10 @@ function getAmount() {
   return custom ? parseFloat(custom) : selectedAmount;
 }
 
+function isMobile() {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
 function handlePay(method) {
   const amount = getAmount();
   const name = document.getElementById('donor-name').value.trim() || 'Anonymous';
@@ -613,17 +613,24 @@ function handlePay(method) {
 
   document.getElementById('confirm').classList.add('show');
 
-  /* 
-    TO LINK YOUR REAL ACCOUNTS, REPLACE THESE URLS:
-    Cash App  → https://cash.app/$YourCashtag/{amount}
-    Venmo     → https://venmo.com/u/YourUsername?txn=pay&amount={amount}&note=TNFC+Donation
-  */
-  const urls = {
-    cashapp: `https://cash.app/$bray0/${amount.toFixed(2)}`,
-    venmo:   `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amount.toFixed(2)}&note=${encodeURIComponent('TNFC Donation - ' + msg)}`
-  };
+  const note = encodeURIComponent('TNFC Donation - ' + msg);
+  const amt  = amount.toFixed(2);
 
-  setTimeout(() => window.open(urls[method], '_blank'), 1800);
+  let url;
+  if (method === 'cashapp') {
+    // Deep link opens Cash App on mobile; falls back to web on desktop
+    url = isMobile()
+      ? `cashapp://cash.app/$bray0/${amt}`
+      : `https://cash.app/$bray0/${amt}`;
+  } else {
+    // Deep link opens Venmo app on mobile; falls back to web on desktop
+    url = isMobile()
+      ? `venmo://paycharge?txn=pay&recipients=TNFCarpets&amount=${amt}&note=${note}`
+      : `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
+  }
+
+  // Use location.href so mobile browsers don't block the navigation
+  setTimeout(() => { window.location.href = url; }, 1800);
 }
 
 function closeConfirm() {
