@@ -72,20 +72,20 @@
 
     /* LEFT — logoTNFC */
     .hero-logo-wrap {
-  flex: 0 0 auto;
-  width: 450px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 3px;
-}
+      flex: 0 0 auto;
+      width: 450px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 3px;
+    }
 
-.hero-logo-wrap img {
-  width: 100%;
-  object-fit: contain;
-}
+    .hero-logo-wrap img {
+      width: 100%;
+      object-fit: contain;
+    }
 
-    /* CENTER — title */
+    /* CENTER — title + service image */
     .title-block {
       flex: 0 0 auto;
       text-align: center;
@@ -109,21 +109,17 @@
       white-space: normal;
     }
 
-    /* RIGHT — service image */
-    .service-img-wrap {
-      flex: 0 0 auto;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      padding-left: 15px;
-    }
-
-    .service-img-wrap img {
-      width: clamp(90px, 14vw, 220px);
+    .title-block .service-img {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 15px;
       object-fit: contain;
       border: none;
       background: transparent;
       box-shadow: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* GALLERY */
@@ -354,16 +350,12 @@
     <img src="logoTNFC.png" alt="Top Notch Floor Covering Logo">
   </div>
 
-  <!-- CENTER: Title -->
+  <!-- CENTER: Title + Service Image underneath -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <p>"The Name Says It All"</p>
     <p>Call (501)-517-0434 for a FREE Quote!</p>
-  </div>
-
-  <!-- RIGHT: Services image -->
-  <div class="service-img-wrap">
-    <img src="service.PNG" alt="Our Services">
+    <img src="service.PNG" alt="Our Services" class="service-img">
   </div>
 
 </div>
