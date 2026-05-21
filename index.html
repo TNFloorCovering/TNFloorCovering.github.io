@@ -65,37 +65,35 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 20px;
-      padding: 40px 20px 20px;
+      gap: 0px;
+      padding: 40px 10px 20px;
       flex-wrap: nowrap;
     }
 
     /* LEFT — logoTNFC */
     .hero-logo-wrap {
-      flex: 1 1 0;
-      min-width: 0;
+      flex: 0 0 auto;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+      padding-right: 12px;
     }
 
     .hero-logo-wrap img {
-      width: 100%;
-      max-width: 220px;
+      width: clamp(100px, 18vw, 300px);
       object-fit: contain;
-      border-radius: 10px;
     }
 
     /* CENTER — title */
     .title-block {
-      flex: 1.2 1 0;
-      min-width: 0;
+      flex: 0 0 auto;
       text-align: center;
+      white-space: nowrap;
     }
 
     .title-block h1 {
       font-family: 'Bebas Neue', Impact, sans-serif;
-      font-size: clamp(22px, 4.5vw, 58px);
+      font-size: clamp(18px, 4vw, 54px);
       font-weight: 400;
       letter-spacing: 3px;
       margin-bottom: 10px;
@@ -104,46 +102,27 @@
     }
 
     .title-block p {
-      font-size: clamp(10px, 1.6vw, 16px);
+      font-size: clamp(9px, 1.4vw, 15px);
       margin: 5px 0;
       font-weight: 500;
+      white-space: normal;
     }
 
     /* RIGHT — service image */
     .service-img-wrap {
-      flex: 1 1 0;
-      min-width: 0;
+      flex: 0 0 auto;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      padding-left: 12px;
     }
 
     .service-img-wrap img {
-      width: 100%;
-      max-width: 220px;
-      border-radius: 14px;
-      border: 2px solid #00ffcc;
-      box-shadow:
-        0 0 18px rgba(0, 255, 204, 0.35),
-        0 0 40px rgba(0, 255, 204, 0.12),
-        0 8px 32px rgba(0, 0, 0, 0.6);
-      animation: glow-pulse 3.5s ease-in-out infinite;
+      width: clamp(90px, 14vw, 220px);
       object-fit: contain;
-    }
-
-    @keyframes glow-pulse {
-      0%, 100% {
-        box-shadow:
-          0 0 18px rgba(0, 255, 204, 0.35),
-          0 0 40px rgba(0, 255, 204, 0.12),
-          0 8px 32px rgba(0, 0, 0, 0.6);
-      }
-      50% {
-        box-shadow:
-          0 0 28px rgba(0, 255, 204, 0.6),
-          0 0 60px rgba(0, 255, 204, 0.22),
-          0 8px 40px rgba(0, 0, 0, 0.7);
-      }
+      border: none;
+      background: transparent;
+      box-shadow: none;
     }
 
     /* GALLERY */
