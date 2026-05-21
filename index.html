@@ -61,40 +61,67 @@
 
     /* HERO */
     .hero {
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:80px;
-      padding:50px 20px 20px;
-      flex-wrap:wrap;
-      text-align:center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 50px 30px 20px;
+      flex-wrap: nowrap;
+    }
+
+    .title-block {
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: center;
     }
 
     .title-block h1 {
-      font-size:44px;
-      font-weight:900;
-      letter-spacing:2px;
-      margin-bottom:10px;
+      font-size: clamp(16px, 3.8vw, 44px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
     }
 
     .title-block p {
-      font-size:18px;
-      margin:5px 0;
-      font-weight:500;
+      font-size: clamp(11px, 1.8vw, 18px);
+      margin: 5px 0;
+      font-weight: 500;
     }
 
-    .services {
-      text-align:left;
-      font-size:14px;
-      font-weight:700;
-      line-height:30px;
+    .service-img-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .services-title {
-      font-size:16px;
-      margin-bottom:10px;
-      color:#00ffcc;
-      font-weight:800;
+    .service-img-wrap img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 14px;
+      border: 2px solid #00ffcc;
+      box-shadow:
+        0 0 18px rgba(0, 255, 204, 0.35),
+        0 0 40px rgba(0, 255, 204, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.6);
+      animation: glow-pulse 3.5s ease-in-out infinite;
+      object-fit: contain;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 18px rgba(0, 255, 204, 0.35),
+          0 0 40px rgba(0, 255, 204, 0.12),
+          0 8px 32px rgba(0, 0, 0, 0.6);
+      }
+      50% {
+        box-shadow:
+          0 0 28px rgba(0, 255, 204, 0.6),
+          0 0 60px rgba(0, 255, 204, 0.22),
+          0 8px 40px rgba(0, 0, 0, 0.7);
+      }
     }
 
     /* GALLERY */
@@ -237,7 +264,6 @@
       position:relative;
     }
 
-    /* rolling carpet fiber lines behind banner */
     .donation-banner-wrap::before {
       content:'';
       position:absolute;
@@ -276,7 +302,6 @@
       50%       { box-shadow: 0 0 0 2px rgba(0,255,204,0.45), 0 8px 60px rgba(0,255,204,0.08); }
     }
 
-    /* unroll effect on load */
     .donation-banner img {
       width:100%;
       display:block;
@@ -328,13 +353,8 @@
     <p>Call (501)-517-0434 for a FREE Quote!</p>
   </div>
 
-  <div class="services">
-    <div class="services-title">Our Services</div>
-
-    <span>* Carpet Installation</span><br>
-    <span>* Carpet Repair</span><br>
-    <span>* Carpet Restretching</span>
-
+  <div class="service-img-wrap">
+    <img src="service.PNG" alt="Our Services">
   </div>
 
 </div>
