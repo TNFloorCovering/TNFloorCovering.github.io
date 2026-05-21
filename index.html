@@ -4,6 +4,7 @@
   <title>Top Notch Floor Covering</title>
 
   <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -61,40 +62,88 @@
 
     /* HERO */
     .hero {
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      gap:80px;
-      padding:50px 20px 20px;
-      flex-wrap:wrap;
-      text-align:center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 40px 20px 20px;
+      flex-wrap: nowrap;
+    }
+
+    /* LEFT — logoTNFC */
+    .hero-logo-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-logo-wrap img {
+      width: 100%;
+      max-width: 220px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    /* CENTER — title */
+    .title-block {
+      flex: 1.2 1 0;
+      min-width: 0;
+      text-align: center;
     }
 
     .title-block h1 {
-      font-size:44px;
-      font-weight:900;
-      letter-spacing:2px;
-      margin-bottom:10px;
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(22px, 4.5vw, 58px);
+      font-weight: 400;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      line-height: 1.05;
+      text-transform: uppercase;
     }
 
     .title-block p {
-      font-size:18px;
-      margin:5px 0;
-      font-weight:500;
+      font-size: clamp(10px, 1.6vw, 16px);
+      margin: 5px 0;
+      font-weight: 500;
     }
 
-    .services {
-      text-align:left;
-      font-size:14px;
-      font-weight:700;
-      line-height:30px;
+    /* RIGHT — service image */
+    .service-img-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .services-title {
-      font-size:16px;
-      margin-bottom:10px;
-      color:#00ffcc;
-      font-weight:800;
+    .service-img-wrap img {
+      width: 100%;
+      max-width: 220px;
+      border-radius: 14px;
+      border: 2px solid #00ffcc;
+      box-shadow:
+        0 0 18px rgba(0, 255, 204, 0.35),
+        0 0 40px rgba(0, 255, 204, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.6);
+      animation: glow-pulse 3.5s ease-in-out infinite;
+      object-fit: contain;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% {
+        box-shadow:
+          0 0 18px rgba(0, 255, 204, 0.35),
+          0 0 40px rgba(0, 255, 204, 0.12),
+          0 8px 32px rgba(0, 0, 0, 0.6);
+      }
+      50% {
+        box-shadow:
+          0 0 28px rgba(0, 255, 204, 0.6),
+          0 0 60px rgba(0, 255, 204, 0.22),
+          0 8px 40px rgba(0, 0, 0, 0.7);
+      }
     }
 
     /* GALLERY */
@@ -237,7 +286,6 @@
       position:relative;
     }
 
-    /* rolling carpet fiber lines behind banner */
     .donation-banner-wrap::before {
       content:'';
       position:absolute;
@@ -276,7 +324,6 @@
       50%       { box-shadow: 0 0 0 2px rgba(0,255,204,0.45), 0 8px 60px rgba(0,255,204,0.08); }
     }
 
-    /* unroll effect on load */
     .donation-banner img {
       width:100%;
       display:block;
@@ -322,19 +369,21 @@
 <!-- HERO -->
 <div class="hero">
 
+  <!-- LEFT: Logo -->
+  <div class="hero-logo-wrap">
+    <img src="logoTNFC.png" alt="Top Notch Floor Covering Logo">
+  </div>
+
+  <!-- CENTER: Title -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <p>"The Name Says It All"</p>
     <p>Call (501)-517-0434 for a FREE Quote!</p>
   </div>
 
-  <div class="services">
-    <div class="services-title">Our Services</div>
-
-    <span>* Carpet Installation</span><br>
-    <span>* Carpet Repair</span><br>
-    <span>* Carpet Restretching</span>
-
+  <!-- RIGHT: Services image -->
+  <div class="service-img-wrap">
+    <img src="service.PNG" alt="Our Services">
   </div>
 
 </div>
