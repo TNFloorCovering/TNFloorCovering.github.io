@@ -60,81 +60,56 @@
       object-fit:contain;
     }
 
-    /* HERO */
+    /* HERO — 3-column grid: service2 | title | service */
     .hero {
-      display: flex;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 0px;
-      padding: 40px 10px 20px;
-      flex-wrap: nowrap;
+      gap: 20px;
+      padding: 40px 30px 30px;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* LEFT — logoTNFC (desktop only) */
-    .hero-logo-wrap {
-      flex: 0 0 auto;
-      width: 470px;
+    .hero-img-left {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .hero-img-right {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      padding-right: -50px;
-      margin-top: -335px;
-      margin-left: -550px;
     }
 
-    .hero-logo-wrap img {
+    .hero-img-left img,
+    .hero-img-right img {
       width: 100%;
+      max-width: 280px;
       object-fit: contain;
     }
 
-    /* Hide logoTNFC on mobile — it was overflowing off-screen */
-    @media (max-width: 768px) {
-      .hero-logo-wrap {
-        display: none;
-      }
-
-      .hero {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px 10px;
-      }
-
-      .title-block {
-        margin-top: 0 !important;
-        text-align: center;
-      }
-
-      .service-images {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .service-images img {
-        max-width: 90vw !important;
-        width: 90vw !important;
-      }
-    }
-
-    /* CENTER — title + service images underneath */
+    /* CENTER title block */
     .title-block {
-      flex: 0 0 auto;
       text-align: center;
       white-space: nowrap;
-      margin-top: -70px;
     }
 
     .title-block h1 {
       font-family: 'Bebas Neue', Impact, sans-serif;
-      font-size: clamp(18px, 4vw, 100px);
+      font-size: clamp(22px, 3.5vw, 72px);
       font-weight: 400;
       letter-spacing: 3px;
-      margin-bottom: 10px;
+      margin: 0 0 8px;
       line-height: 1.05;
       text-transform: uppercase;
     }
 
     .title-block p {
-      font-size: clamp(9px, 1.4vw, 15px);
+      font-size: clamp(11px, 1.2vw, 15px);
       margin: 5px 0;
       font-weight: 500;
       white-space: normal;
@@ -154,7 +129,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
       margin: 14px 0 0;
     }
@@ -165,8 +140,8 @@
       gap: 6px;
       border: 1px solid rgba(0,255,204,0.35);
       border-radius: 999px;
-      padding: 5px 14px;
-      font-size: 12px;
+      padding: 5px 12px;
+      font-size: 11px;
       font-weight: 700;
       color: #00ffcc;
       letter-spacing: 0.5px;
@@ -174,24 +149,45 @@
       white-space: nowrap;
     }
 
-    /* Side-by-side service images */
-    .service-images {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 12px;
-      margin-top: 15px;
-      flex-wrap: nowrap;
-    }
+    /* MOBILE — stack everything, no overflow ever */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        padding: 24px 16px 20px;
+        gap: 16px;
+        text-align: center;
+      }
 
-    .service-images img {
-      width: 320px;
-      max-width: 320px;
-      object-fit: contain;
-      border: none;
-      background: transparent;
-      box-shadow: none;
-      display: block;
+      .hero-img-left {
+        order: 2;
+        justify-content: center;
+      }
+
+      .title-block {
+        order: 1;
+        white-space: normal;
+      }
+
+      .hero-img-right {
+        order: 3;
+        justify-content: center;
+      }
+
+      .hero-img-left img,
+      .hero-img-right img {
+        max-width: 80vw;
+        width: 80vw;
+      }
+
+      .title-block h1 {
+        font-size: clamp(28px, 8vw, 52px);
+        letter-spacing: 2px;
+      }
+
+      .title-block p {
+        font-size: 13px;
+      }
     }
 
     /* GALLERY */
@@ -417,31 +413,28 @@
 <!-- HERO -->
 <div class="hero">
 
-  <!-- LEFT: Logo (desktop only) -->
-  <div class="hero-logo-wrap">
-    <img src="logoTNFC.png" alt="Top Notch Floor Covering Logo">
+  <!-- LEFT: service2.png -->
+  <div class="hero-img-left">
+    <img src="service2.png" alt="Our Services">
   </div>
 
-  <!-- CENTER: Title + Service Images side by side underneath -->
+  <!-- CENTER: Title + badges -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <div class="h1-underline"></div>
     <p>"The Name Says It All"</p>
     <p>Call (501)-517-0434 for a FREE Quote!</p>
-
-    <!-- Trust badges -->
     <div class="trust-badges">
       <div class="badge">&#10003; Licensed</div>
       <div class="badge">&#9672; Insured</div>
       <div class="badge">&#9733; 5-Star Rated</div>
       <div class="badge">&#10140; Free Estimates</div>
     </div>
+  </div>
 
-    <!-- Two service images side by side -->
-    <div class="service-images">
-      <img src="service.PNG" alt="Our Services">
-      <img src="service2.png" alt="Our Services 2">
-    </div>
+  <!-- RIGHT: service.PNG -->
+  <div class="hero-img-right">
+    <img src="service.PNG" alt="Our Services">
   </div>
 
 </div>
