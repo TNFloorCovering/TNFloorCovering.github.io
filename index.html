@@ -70,7 +70,7 @@
       flex-wrap: nowrap;
     }
 
-    /* LEFT — logoTNFC */
+    /* LEFT — logoTNFC (desktop only) */
     .hero-logo-wrap {
       flex: 0 0 auto;
       width: 550px;
@@ -82,20 +82,40 @@
       margin-left: -550px;
     }
 
-    @media (max-width: 768px) {
-      .hero-logo-wrap {
-        width: 100px;
-        margin-left: 0px;
-        margin-top: 0px;
-        padding-right: 0px;
-      }
-    }
     .hero-logo-wrap img {
       width: 100%;
       object-fit: contain;
     }
 
-    /* CENTER — title + service image */
+    /* Hide logoTNFC on mobile — it was overflowing off-screen */
+    @media (max-width: 768px) {
+      .hero-logo-wrap {
+        display: none;
+      }
+
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+      }
+
+      .title-block {
+        margin-top: 0 !important;
+        text-align: center;
+      }
+
+      .service-images {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .service-images img {
+        max-width: 90vw !important;
+        width: 90vw !important;
+      }
+    }
+
+    /* CENTER — title + service images underneath */
     .title-block {
       flex: 0 0 auto;
       text-align: center;
@@ -120,17 +140,24 @@
       white-space: normal;
     }
 
-    .title-block .service-img {
-      width: 100%;
-      max-width: 320px;
+    /* Side-by-side service images */
+    .service-images {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 12px;
       margin-top: 15px;
+      flex-wrap: nowrap;
+    }
+
+    .service-images img {
+      width: 320px;
+      max-width: 320px;
       object-fit: contain;
       border: none;
       background: transparent;
       box-shadow: none;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     /* GALLERY */
@@ -356,17 +383,22 @@
 <!-- HERO -->
 <div class="hero">
 
-  <!-- LEFT: Logo -->
+  <!-- LEFT: Logo (desktop only) -->
   <div class="hero-logo-wrap">
     <img src="logoTNFC.png" alt="Top Notch Floor Covering Logo">
   </div>
 
-  <!-- CENTER: Title + Service Image underneath -->
+  <!-- CENTER: Title + Service Images side by side underneath -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <p>"The Name Says It All"</p>
     <p>Call (501)-517-0434 for a FREE Quote!</p>
-    <img src="service.PNG" alt="Our Services" class="service-img">
+
+    <!-- Two service images side by side -->
+    <div class="service-images">
+      <img src="service.PNG" alt="Our Services">
+      <img src="service2.png" alt="Our Services 2">
+    </div>
   </div>
 
 </div>
