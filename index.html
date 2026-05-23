@@ -140,6 +140,40 @@
       white-space: normal;
     }
 
+    /* H1 teal underline bar */
+    .h1-underline {
+      width: 80px;
+      height: 3px;
+      background: #00ffcc;
+      margin: 0 auto 10px;
+      border-radius: 2px;
+    }
+
+    /* Trust badges row */
+    .trust-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 14px 0 0;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(0,255,204,0.35);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00ffcc;
+      letter-spacing: 0.5px;
+      background: rgba(0,255,204,0.05);
+      white-space: nowrap;
+    }
+
     /* Side-by-side service images */
     .service-images {
       display: flex;
@@ -391,8 +425,17 @@
   <!-- CENTER: Title + Service Images side by side underneath -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
+    <div class="h1-underline"></div>
     <p>"The Name Says It All"</p>
     <p>Call (501)-517-0434 for a FREE Quote!</p>
+
+    <!-- Trust badges -->
+    <div class="trust-badges">
+      <div class="badge">&#10003; Licensed</div>
+      <div class="badge">&#9672; Insured</div>
+      <div class="badge">&#9733; 5-Star Rated</div>
+      <div class="badge">&#10140; Free Estimates</div>
+    </div>
 
     <!-- Two service images side by side -->
     <div class="service-images">
