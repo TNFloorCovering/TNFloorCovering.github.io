@@ -30,13 +30,8 @@
       align-items:center;
     }
 
-    .left-links {
-      justify-content:flex-end;
-    }
-
-    .right-links {
-      justify-content:flex-start;
-    }
+    .left-links { justify-content:flex-end; }
+    .right-links { justify-content:flex-start; }
 
     nav a {
       color:white;
@@ -45,9 +40,7 @@
       font-size:14px;
     }
 
-    nav a:hover {
-      color:#00ffcc;
-    }
+    nav a:hover { color:#00ffcc; }
 
     .logo {
       display:flex;
@@ -60,7 +53,7 @@
       object-fit:contain;
     }
 
-    /* HERO — 3-column grid: service2 | title | service */
+    /* HERO */
     .hero {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -92,7 +85,6 @@
       object-fit: contain;
     }
 
-    /* CENTER title block */
     .title-block {
       text-align: center;
       white-space: nowrap;
@@ -115,7 +107,6 @@
       white-space: normal;
     }
 
-    /* H1 teal underline bar */
     .h1-underline {
       width: 80px;
       height: 3px;
@@ -124,7 +115,6 @@
       border-radius: 2px;
     }
 
-    /* Trust badges row */
     .trust-badges {
       display: flex;
       justify-content: center;
@@ -149,7 +139,7 @@
       white-space: nowrap;
     }
 
-    /* MOBILE — stack everything, no overflow ever */
+    /* MOBILE */
     @media (max-width: 768px) {
       .hero {
         grid-template-columns: 1fr;
@@ -158,79 +148,121 @@
         gap: 16px;
         text-align: center;
       }
-
-      .hero-img-left {
-        order: 2;
-        justify-content: center;
-      }
-
-      .title-block {
-        order: 1;
-        white-space: normal;
-      }
-
-      .hero-img-right {
-        order: 3;
-        justify-content: center;
-      }
-
+      .hero-img-left { order: 2; justify-content: center; }
+      .title-block   { order: 1; white-space: normal; }
+      .hero-img-right { order: 3; justify-content: center; }
       .hero-img-left img,
-      .hero-img-right img {
-        max-width: 80vw;
-        width: 80vw;
-      }
-
-      .title-block h1 {
-        font-size: clamp(28px, 8vw, 52px);
-        letter-spacing: 2px;
-      }
-
-      .title-block p {
-        font-size: 13px;
-      }
+      .hero-img-right img { max-width: 80vw; width: 80vw; }
+      .title-block h1 { font-size: clamp(28px, 8vw, 52px); letter-spacing: 2px; }
+      .title-block p  { font-size: 13px; }
     }
 
-    /* GALLERY */
+    /* =============================================
+       GALLERY SECTION — Fan / Arc Card Stack
+       ============================================= */
     .gallery {
-      padding:40px 20px;
-      text-align:center;
-      background:#0d0d0d;
+      padding: 60px 20px 50px;
+      text-align: center;
+      background: #0d0d0d;
     }
 
     .gallery h2 {
-      margin-bottom:10px;
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 3px;
+      margin-bottom: 8px;
+      color: white;
     }
 
-    .gallery p {
-      margin-bottom:25px;
-      color:#ddd;
-      font-weight:800;
-      font-size:15px;
-      letter-spacing:0.5px;
+    .gallery > p {
+      margin-bottom: 50px;
+      color: #ddd;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: 0.5px;
     }
 
-    .gallery-grid {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:15px;
+    /* The scene is wide enough to show fanned cards without clipping */
+    .fan-scene {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      height: 420px; /* room for arc + shadow */
+      perspective: 1200px;
     }
 
-    .gallery-grid img {
-      width:250px;
-      height:180px;
-      object-fit:cover;
-      border-radius:10px;
-      cursor:pointer;
-      border:2px solid #222;
-      transition:0.2s;
+    .fan-card {
+      position: absolute;
+      /* card dimensions */
+      width: 320px;
+      height: 240px;
+      left: 50%;
+      /* pivot from bottom-center for natural fan */
+      transform-origin: 50% 120%;
+      margin-left: -160px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #222;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      cursor: pointer;
+      transition:
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s ease,
+        opacity   0.4s ease;
+      will-change: transform;
+      top: 60px; /* vertical offset within scene */
     }
 
-    .gallery-grid img:hover {
-      transform:scale(1.03);
+    .fan-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
     }
 
-    /* BUTTON STYLE */
+    /* Active (center) card gets teal glow */
+    .fan-card.is-center {
+      box-shadow:
+        0 0 0 2.5px rgba(0,255,204,0.6),
+        0 24px 70px rgba(0,0,0,0.75),
+        0 0 40px rgba(0,255,204,0.12);
+      z-index: 20 !important;
+    }
+
+    /* Dots */
+    .stack-dots {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    .stack-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .stack-dot.active {
+      background: #00ffcc;
+      transform: scale(1.35);
+      border-color: #00ffcc;
+    }
+
+    .stack-hint {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* BUTTON */
     .main-btn {
       display:inline-block;
       background:#00ffcc;
@@ -240,7 +272,7 @@
       text-decoration:none;
       font-weight:900;
       transition:0.2s;
-      margin-top:35px;
+      margin-top:32px;
     }
 
     .main-btn:hover {
@@ -248,7 +280,7 @@
       background:white;
     }
 
-    /* PROSOURCE SECTION */
+    /* PROSOURCE */
     .prosource-section {
       margin-top:70px;
       text-align:center;
@@ -280,10 +312,8 @@
     .lightbox {
       display:none;
       position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
+      top:0; left:0;
+      width:100%; height:100%;
       background:rgba(0,0,0,0.9);
       justify-content:center;
       align-items:center;
@@ -299,8 +329,7 @@
 
     .close {
       position:absolute;
-      top:20px;
-      right:30px;
+      top:20px; right:30px;
       font-size:30px;
       cursor:pointer;
       color:white;
@@ -336,8 +365,7 @@
       inset:0;
       background: repeating-linear-gradient(
         90deg,
-        transparent,
-        transparent 6px,
+        transparent, transparent 6px,
         rgba(0,255,204,0.03) 6px,
         rgba(0,255,204,0.03) 7px
       );
@@ -389,6 +417,18 @@
       transform: scale(1.02);
     }
 
+    /* Mobile fan fallback */
+    @media (max-width: 600px) {
+      .fan-scene {
+        height: 300px;
+      }
+      .fan-card {
+        width: 220px;
+        height: 165px;
+        margin-left: -110px;
+        top: 40px;
+      }
+    }
   </style>
 </head>
 
@@ -399,11 +439,9 @@
     <a href="index.html">Home</a>
     <a href="products.html">Products</a>
   </div>
-
   <div class="logo">
     <img src="logo.png" alt="Company Logo">
   </div>
-
   <div class="right-links">
     <a href="Gallery.html">Gallery</a>
     <a href="booking.html">Book</a>
@@ -412,13 +450,9 @@
 
 <!-- HERO -->
 <div class="hero">
-
-  <!-- LEFT: service2.png -->
   <div class="hero-img-left">
     <img src="service2.png" alt="Our Services">
   </div>
-
-  <!-- CENTER: Title + badges -->
   <div class="title-block">
     <h1>TOP NOTCH FLOOR COVERING</h1>
     <div class="h1-underline"></div>
@@ -431,57 +465,34 @@
       <div class="badge">&#10140; Free Estimates</div>
     </div>
   </div>
-
-  <!-- RIGHT: service.PNG -->
   <div class="hero-img-right">
     <img src="service.PNG" alt="Our Services">
   </div>
-
 </div>
 
 <!-- GALLERY -->
 <div class="gallery">
-
   <h2>Some of Our Work</h2>
-
   <p><strong>High-quality carpet installation built on precision, durability, and pride in every detail.</strong></p>
 
-  <div class="gallery-grid">
-    <img src="work1.jpeg" onclick="openLightbox(0)">
-    <img src="work2.jpeg" onclick="openLightbox(1)">
-    <img src="work3.jpeg" onclick="openLightbox(2)">
-    <img src="work4.jpeg" onclick="openLightbox(3)">
-    <img src="work15.jpeg" onclick="openLightbox(4)">
-    <img src="work6.jpeg" onclick="openLightbox(5)">
-  </div>
+  <!-- FAN CARD STACK -->
+  <div class="fan-scene" id="fanScene"></div>
+  <div class="stack-dots" id="stackDots"></div>
+  <div class="stack-hint">Click any card · Auto-advances every 4s</div>
 
-  <!-- GALLERY BUTTON -->
-  <a class="main-btn" href="Gallery.html">
-    View Full Gallery
-  </a>
+  <a class="main-btn" href="Gallery.html">View Full Gallery</a>
 
-  <!-- PROSOURCE SECTION -->
+  <!-- PROSOURCE -->
   <div class="prosource-section">
-
-    <div class="prosource-title">
-      Need Carpet? WE Recommend ↓
-    </div>
-
+    <div class="prosource-title">Need Carpet? WE Recommend ↓</div>
     <a href="https://www.prosourcewholesale.com" target="_blank">
       <img src="prologo.png" alt="ProSource Logo" class="prosource-logo">
     </a>
-    <div class="prosource-text">
-      Browse thousands of carpet styles, textures, and colors.
-    </div>
-
+    <div class="prosource-text">Browse thousands of carpet styles, textures, and colors.</div>
     <a class="main-btn"
        href="https://www.prosourcewholesale.com/products/flooring/carpet"
-       target="_blank">
-       View Carpets
-    </a>
-
+       target="_blank">View Carpets</a>
   </div>
-
 </div>
 
 <!-- LIGHTBOX -->
@@ -500,11 +511,131 @@
 </div>
 
 <script>
-  const images = [
-    "work1.jpeg","work2.jpeg","work3.jpeg",
-    "work4.jpeg","work15.jpeg","work6.jpeg"
+  /* ============================================
+     FAN / ARC CARD STACK
+     ============================================ */
+  const cardSrcs = [
+    "work1.jpeg",
+    "work2.jpeg",
+    "work3.jpeg",
+    "work4.jpeg",
+    "work15.jpeg",
+    "work6.jpeg",
   ];
 
+  const scene    = document.getElementById('fanScene');
+  const dotsWrap = document.getElementById('stackDots');
+  const N        = cardSrcs.length;
+  let centerIdx  = 0;
+  let autoTimer  = null;
+
+  /*
+    Fan layout:
+    - Cards are spread in an arc around the bottom-center pivot.
+    - Each card's position is described by its offset from center (-2, -1, 0, +1, +2…).
+    - Rotation angle, horizontal spread, vertical lift, and z-index all come from offset.
+  */
+  const FAN_ANGLE     = 18;   // degrees between each card
+  const FAN_X_SPREAD  = 130;  // px horizontal separation between cards
+  const FAN_Y_LIFT    = 18;   // extra px the center card rises above neighbors
+  const FAN_SCALE_OFF = 0.06; // scale reduction per step away from center
+
+  function getOffset(i) {
+    /* signed offset from current center, wrapping to shortest path */
+    let raw = i - centerIdx;
+    if (raw >  N / 2) raw -= N;
+    if (raw < -N / 2) raw += N;
+    return raw;
+  }
+
+  function applyFan() {
+    cardEls.forEach((el, i) => {
+      const off   = getOffset(i);
+      const absOff = Math.abs(off);
+
+      /* Hide cards that are too far away (beyond 2 from center) */
+      const maxVisible = 2;
+      if (absOff > maxVisible) {
+        el.style.opacity   = '0';
+        el.style.zIndex    = '0';
+        el.style.pointerEvents = 'none';
+        el.classList.remove('is-center');
+        return;
+      }
+
+      const rotate  = off * FAN_ANGLE;
+      const translateX = off * FAN_X_SPREAD;
+      const translateY = absOff === 0 ? -FAN_Y_LIFT : absOff * 10;
+      const scale   = 1 - absOff * FAN_SCALE_OFF;
+      const zIndex  = 10 - absOff;
+      /* fade side cards very slightly */
+      const opacity = absOff === 0 ? 1 : 1 - absOff * 0.15;
+
+      el.style.transform  = `translateX(${translateX}px) translateY(${translateY}px) rotate(${rotate}deg) scale(${scale})`;
+      el.style.zIndex     = zIndex;
+      el.style.opacity    = opacity;
+      el.style.pointerEvents = 'auto';
+      el.classList.toggle('is-center', off === 0);
+    });
+
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === centerIdx));
+  }
+
+  function advance() {
+    centerIdx = (centerIdx + 1) % N;
+    applyFan();
+  }
+
+  function goTo(i) {
+    centerIdx = i;
+    applyFan();
+  }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(advance, 4000);
+  }
+
+  function stopAuto() {
+    clearInterval(autoTimer);
+  }
+
+  /* Build cards */
+  const cardEls = cardSrcs.map((src, i) => {
+    const el = document.createElement('div');
+    el.className = 'fan-card';
+    el.innerHTML = `<img src="${src}" alt="Our work" loading="lazy">`;
+    el.addEventListener('click', () => {
+      stopAuto();
+      goTo(i);
+      startAuto();
+    });
+    scene.appendChild(el);
+    return el;
+  });
+
+  /* Build dots */
+  const dotEls = cardSrcs.map((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'stack-dot';
+    d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); });
+    dotsWrap.appendChild(d);
+    return d;
+  });
+
+  /* Pause on hover */
+  scene.addEventListener('mouseenter', stopAuto);
+  scene.addEventListener('mouseleave', startAuto);
+
+  /* Init */
+  applyFan();
+  startAuto();
+
+
+  /* ============================================
+     LIGHTBOX
+     ============================================ */
+  const images = [...cardSrcs];
   let currentIndex = 0;
 
   function openLightbox(index) {
@@ -518,11 +649,7 @@
   }
 
   function changeImage(direction) {
-    currentIndex += direction;
-
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-
+    currentIndex = (currentIndex + direction + images.length) % images.length;
     document.getElementById("lightbox-img").src = images[currentIndex];
   }
 </script>
