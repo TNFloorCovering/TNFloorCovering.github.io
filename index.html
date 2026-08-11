@@ -189,7 +189,13 @@
       max-width: 900px;
       margin: 0 auto;
       height: 420px; /* room for arc + shadow */
-      perspective: 1200px;
+      /* NOTE: perspective removed — this scene only ever does 2D
+         translate/rotate/scale, and having a perspective context on a
+         parent whose children animate border-radius+overflow:hidden
+         clips is what triggers Safari's re-rasterize-every-frame bug
+         (visible as flicker/glitch during the fan transition). */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
 
     .fan-card {
@@ -210,8 +216,20 @@
         transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
         box-shadow 0.4s ease,
         opacity   0.4s ease;
-      will-change: transform;
+      will-change: transform, opacity;
       top: 60px; /* vertical offset within scene */
+
+      /* --- Safari flicker fixes ---
+         Safari has a long-standing bug where an element with
+         border-radius + overflow:hidden that is being transformed/
+         transitioned gets its rounded clip re-rasterized every frame,
+         producing a visible stutter/flicker. Forcing the element onto
+         its own GPU compositing layer (translateZ + backface-visibility)
+         and using a mask-image instead of relying purely on the
+         overflow clip works around it. */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     .fan-card img {
@@ -220,6 +238,8 @@
       object-fit: cover;
       display: block;
       pointer-events: none;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
     /* Active (center) card gets teal glow */
@@ -570,7 +590,10 @@
       /* fade side cards very slightly */
       const opacity = absOff === 0 ? 1 : 1 - absOff * 0.15;
 
-      el.style.transform  = `translateX(${translateX}px) translateY(${translateY}px) rotate(${rotate}deg) scale(${scale})`;
+      /* translateZ(0) is appended to force this transform onto its own
+         GPU layer — combined with the mask-image + backface-visibility
+         fixes above, this is what stops the Safari flicker. */
+      el.style.transform  = `translateX(${translateX}px) translateY(${translateY}px) rotate(${rotate}deg) scale(${scale}) translateZ(0)`;
       el.style.zIndex     = zIndex;
       el.style.opacity    = opacity;
       el.style.pointerEvents = 'auto';
@@ -626,8 +649,9 @@
   scene.addEventListener('mouseenter', stopAuto);
   scene.addEventListener('mouseleave', startAuto);
 
-  /* Init */
-  applyFan();
+  /* Init — run on next frame so Safari has laid out the scene before
+     the first transform is applied (avoids an initial flash/jump). */
+  requestAnimationFrame(applyFan);
   startAuto();
 
 
