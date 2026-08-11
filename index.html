@@ -186,9 +186,9 @@
     .fan-scene {
       position: relative;
       width: 100%;
-      max-width: 900px;
+      max-width: 700px;
       margin: 0 auto;
-      height: 420px; /* room for arc + shadow */
+      height: 330px; /* room for arc + shadow */
       /* NOTE: perspective removed — this scene only ever does 2D
          translate/rotate/scale, and having a perspective context on a
          parent whose children animate border-radius+overflow:hidden
@@ -200,14 +200,18 @@
 
     .fan-card {
       position: absolute;
-      /* card dimensions */
-      width: 320px;
-      height: 240px;
+      /* card dimensions — kept smaller than before so the fanned-out
+         cards stay well inside the scene bounds. The Safari flicker
+         was worst on the right-most cards, which were pushing right up
+         against the edge of the scene; shrinking the spread keeps
+         every card safely clear of that edge. */
+      width: 240px;
+      height: 180px;
       left: 50%;
       /* pivot from bottom-center for natural fan */
       transform-origin: 50% 120%;
-      margin-left: -160px;
-      border-radius: 18px;
+      margin-left: -120px;
+      border-radius: 16px;
       overflow: hidden;
       background: #222;
       box-shadow: 0 20px 60px rgba(0,0,0,0.7);
@@ -217,19 +221,13 @@
         box-shadow 0.4s ease,
         opacity   0.4s ease;
       will-change: transform, opacity;
-      top: 60px; /* vertical offset within scene */
+      top: 50px; /* vertical offset within scene */
 
-      /* --- Safari flicker fixes ---
-         Safari has a long-standing bug where an element with
-         border-radius + overflow:hidden that is being transformed/
-         transitioned gets its rounded clip re-rasterized every frame,
-         producing a visible stutter/flicker. Forcing the element onto
-         its own GPU compositing layer (translateZ + backface-visibility)
-         and using a mask-image instead of relying purely on the
-         overflow clip works around it. */
+      /* Force this element onto its own GPU compositing layer —
+         helps Safari avoid re-rasterizing the rounded clip on every
+         transition frame. */
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     .fan-card img {
@@ -440,13 +438,13 @@
     /* Mobile fan fallback */
     @media (max-width: 600px) {
       .fan-scene {
-        height: 300px;
+        height: 240px;
       }
       .fan-card {
-        width: 220px;
-        height: 165px;
-        margin-left: -110px;
-        top: 40px;
+        width: 170px;
+        height: 128px;
+        margin-left: -85px;
+        top: 35px;
       }
     }
   </style>
@@ -554,9 +552,9 @@
     - Each card's position is described by its offset from center (-2, -1, 0, +1, +2…).
     - Rotation angle, horizontal spread, vertical lift, and z-index all come from offset.
   */
-  const FAN_ANGLE     = 18;   // degrees between each card
-  const FAN_X_SPREAD  = 130;  // px horizontal separation between cards
-  const FAN_Y_LIFT    = 18;   // extra px the center card rises above neighbors
+  const FAN_ANGLE     = 16;   // degrees between each card
+  const FAN_X_SPREAD  = 90;   // px horizontal separation between cards (kept small so cards never reach the scene edge)
+  const FAN_Y_LIFT    = 16;   // extra px the center card rises above neighbors
   const FAN_SCALE_OFF = 0.06; // scale reduction per step away from center
 
   function getOffset(i) {
