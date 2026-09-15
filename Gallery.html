@@ -352,6 +352,8 @@
 
   let currentIndex = 0;
   let autoCycleTimer = null;
+  let resumeTimer = null;
+  let fadeTimer = null;
 
   const featured = document.getElementById("featured-img");
   const fullscreen = document.getElementById("fullscreen");
@@ -359,7 +361,8 @@
   const galleryImages = document.querySelectorAll(".gallery img");
 
   /* mark featured/full images as loaded once they actually finish
-     loading so the shimmer swaps for the real photo */
+     loading, so the shimmer only ever shows on the very first image —
+     not on every cycle (that re-trigger was the "flash" bug) */
   featured.addEventListener("load", () => featured.classList.add("loaded"));
   fullImg.addEventListener("load", () => fullImg.classList.add("loaded"));
 
@@ -371,7 +374,7 @@
     stopAutoCycle();
     autoCycleTimer = setInterval(() => {
       if (fullscreen.style.display !== "flex") {
-        changeSlide(1);
+        changeSlide(1, false);
       }
     }, 5000);
   }
@@ -384,23 +387,27 @@
     }
   }
 
-  /* PAUSE THEN RESUME (used when thumbnail is clicked) */
+  /* PAUSE THEN RESUME after a 30s cooldown (used any time the user
+     manually picks a photo — arrows, thumbnails, or fullscreen nav) */
   function pauseAndResume() {
     stopAutoCycle();
-    setTimeout(() => {
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
       startAutoCycle();
-    }, 10000);
+    }, 30000);
   }
 
   /* BEGIN CYCLING */
   startAutoCycle();
 
-  /* CHANGE MAIN SLIDE (arrows) */
-  function changeSlide(direction) {
+  /* CHANGE MAIN SLIDE (arrows). userInitiated=false is used by the
+     auto-cycle interval itself so it doesn't pause on its own tick. */
+  function changeSlide(direction, userInitiated = true) {
     currentIndex += direction;
     if (currentIndex < 0) currentIndex = images.length - 1;
     if (currentIndex >= images.length) currentIndex = 0;
     updateMain();
+    if (userInitiated) pauseAndResume();
   }
 
   /* CLICK SMALL IMAGE — pauses auto-cycle so the chosen photo stays put */
@@ -410,18 +417,21 @@
     pauseAndResume();
   }
 
-  /* UPDATE MAIN IMAGE */
+  /* UPDATE MAIN IMAGE — simple crossfade, no shimmer re-trigger, and
+     any in-flight fade is cancelled before starting a new one so rapid
+     clicks can't stack timeouts and cause a flicker */
   function updateMain() {
-    featured.classList.remove("loaded");
+    if (fadeTimer) clearTimeout(fadeTimer);
     featured.classList.add("fade-out");
 
-    setTimeout(() => {
+    fadeTimer = setTimeout(() => {
       featured.src = images[currentIndex];
+      featured.classList.add("loaded");
       featured.classList.remove("fade-out");
       highlightActive();
 
       /* KEEP FULLSCREEN MATCHED */
-      fullImg.classList.remove("loaded");
+      fullImg.classList.add("loaded");
       fullImg.src = images[currentIndex];
     }, 200);
   }
@@ -444,14 +454,10 @@
     fullscreen.style.display = "none";
   }
 
-  /* FULLSCREEN CHANGE */
+  /* FULLSCREEN CHANGE — delegates to changeSlide so fullscreen nav also
+     gets the 30s auto-cycle cooldown and keeps the thumbnail grid in sync */
   function fsChange(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-    fullImg.classList.remove("loaded");
-    fullImg.src = images[currentIndex];
-    updateMain();
+    changeSlide(direction);
   }
 </script>
 
