@@ -124,14 +124,14 @@
   .partner{
     background:var(--pine);color:var(--oat);
     border-radius:var(--radius);
-    display:flex;align-items:center;gap:48px;
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;
     padding:48px;
   }
   .partner img{background:var(--oat);padding:14px 20px;border-radius:var(--radius);height:60px;width:auto;}
   .partner-copy{flex:1;}
   .partner-copy .k{font-family:'IBM Plex Mono';color:var(--gold);font-size:12.5px;margin-bottom:10px;display:block;}
   .partner-copy h3{color:var(--oat);font-size:26px;margin-bottom:10px;}
-  .partner-copy p{color:var(--oat-deep);font-size:15px;max-width:60ch;}
+  .partner-copy p{color:var(--oat-deep);font-size:15px;max-width:60ch;margin-left:auto;margin-right:auto;}
   .partner-cta{margin-top:16px;display:inline-block;}
 
   /* gallery */
@@ -185,7 +185,6 @@
 
   @media(max-width:860px){
     nav{display:none;}
-    .partner{flex-direction:column;text-align:center;}
     .foot-grid{grid-template-columns:1fr;}
   }
 </style>
@@ -206,7 +205,8 @@
       <a href="Gallery.html">Gallery</a>
       <a href="#contact">Book</a>
     </nav>
-    <a class="call-btn" href="tel:5015170434"><span>📞<span class="num">(501) 517-0434</span>
+    <a class="call-btn" href="tel:5015170434"><span>📞</span><span class="num">(501) 517-0434</span></a>
+  </div>
 </header>
 
 <section class="hero" style="padding:0;">
@@ -248,10 +248,10 @@
       <h2>A few jobs from around Little Rock.</h2>
     </div>
     <div class="gallery-scroll">
-      <div class="g-item"><img src="images/work1.jpg" alt="Carpet install job photo"><div class="cap">Master bedroom & closets</div></div>
-      <div class="g-item"><img src="images/work2.jpg" alt="Carpet install job photo"><div class="cap">Master closet</div></div>
-      <div class="g-item"><img src="images/work3.jpeg" alt="Carpet install job photo"><div class="cap">Theatre room</div></div>
-      <div class="g-item"><img src="images/work4.jpg" alt="Carpet install job photo"><div class="cap">Master closet</div></div>
+      <div class="g-item"><img src="images/work1.jpg" alt="Carpet install job photo"><div class="cap">Master bedroom + closets</div></div>
+      <div class="g-item"><img src="images/work14.jpeg" alt="Carpet install job photo"><div class="cap">Upstairs hallway + bedrooms</div></div>
+      <div class="g-item"><img src="images/work3.jpeg" alt="Carpet install job photo"><div class="cap">Theatre room addition</div></div>
+      <div class="g-item"><img src="images/work4.jpg" alt="Carpet install job photo"><div class="cap">Master closet remodel</div></div>
     </div>
     <a class="btn-ghost" style="border-color:var(--walnut);color:var(--walnut);display:inline-block;margin-top:28px;" href="Gallery.html">View Full Gallery</a>
   </div>
