@@ -50,10 +50,11 @@
   .header-inner{
     display:flex;align-items:center;justify-content:space-between;
     padding:16px 32px;max-width:1180px;margin:0 auto;
+    gap:16px;
   }
-  .brand{display:flex;align-items:center;gap:12px;}
-  .brand img{height:44px;width:auto;}
-  .brand-text{line-height:1.1;}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0;}
+  .brand img{height:44px;width:auto;flex-shrink:0;}
+  .brand-text{line-height:1.1;min-width:0;}
   .brand-text .name{font-family:'Big Shoulders Display';font-weight:800;font-size:19px;color:var(--pine);}
   .brand-text .tag{font-size:11px;color:var(--walnut);font-family:'IBM Plex Mono';letter-spacing:0.03em;}
   nav{display:flex;align-items:center;gap:30px;}
@@ -65,8 +66,10 @@
     border-radius:var(--radius);
     display:flex;align-items:center;gap:8px;
     box-shadow:0 2px 0 var(--gold-dark);
+    flex-shrink:0;
+    white-space:nowrap;
   }
-  .call-btn .num{font-family:'IBM Plex Mono';}
+  .call-btn .num{font-family:'IBM Plex Mono';white-space:nowrap;}
 
   /* hero */
   .hero{
@@ -110,8 +113,9 @@
   .trust-strip span{
     color:var(--oat-deep);font-size:13.5px;font-weight:600;
     padding:0 22px 0 0;margin-right:22px;border-right:1px solid rgba(243,236,221,0.25);
+    white-space:nowrap;
   }
-  .trust-strip span:last-child{border-right:none;}
+  .trust-strip span:last-child{border-right:none;margin-right:0;padding-right:0;}
 
   /* section shell */
   section{padding:88px 0;}
@@ -187,6 +191,23 @@
     nav{display:none;}
     .foot-grid{grid-template-columns:1fr;}
   }
+
+  /* mobile: keep header phone number and trust-strip on one row each */
+  @media(max-width:480px){
+    .header-inner{padding:12px 16px;gap:8px;}
+    .brand{gap:8px;}
+    .brand img{height:32px;}
+    .brand-text .name{font-size:14px;}
+    .brand-text .tag{font-size:8.5px;}
+    .call-btn{padding:8px 12px;font-size:12.5px;gap:6px;}
+    .call-btn .num{font-size:12.5px;}
+
+    .trust-strip{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;}
+    .trust-strip span{font-size:11px;padding:0 12px 0 0;margin-right:12px;}
+    .trust-strip::-webkit-scrollbar{display:none;}
+
+    .hero-inner{padding:64px 20px 44px;}
+  }
 </style>
 </head>
 <body>
@@ -256,6 +277,12 @@
   </div>
 </section>
 
+<section class="donation-band">
+  <a class="donation-banner" href="donations.html">
+    <img src="images/dono.png" alt="Support TNFC — Click to Donate">
+  </a>
+</section>
+
 <section class="cta-band" id="contact">
   <div class="wrap">
     <h2>Ready to start your project?</h2>
@@ -265,12 +292,6 @@
       <a class="btn-ghost" href="booking.html">Book Online</a>
     </div>
   </div>
-</section>
-
-<section class="donation-band">
-  <a class="donation-banner" href="donations.html">
-    <img src="images/dono.png" alt="Support TNFC — Click to Donate">
-  </a>
 </section>
 
 <footer>
