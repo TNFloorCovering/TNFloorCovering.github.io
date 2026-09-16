@@ -42,12 +42,12 @@
   .page {
     position: relative;
     z-index: 1;
-    max-width: 560px;
+    max-width: 640px;
     margin: 0 auto;
     padding: 60px 24px 80px;
   }
 
-  .brand { text-align: center; margin-bottom: 48px; }
+  .brand { text-align: center; margin-bottom: 40px; }
 
   .logo-ring {
     display: inline-flex;
@@ -94,7 +94,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 2px;
-    padding: 32px;
+    padding: 24px;
     margin-bottom: 16px;
     position: relative;
     overflow: hidden;
@@ -119,163 +119,22 @@
     letter-spacing: 2.5px;
     text-transform: uppercase;
     color: var(--gold-dim);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     display: block;
-  }
-
-  .pill-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .pill {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    padding: 10px 6px;
     text-align: center;
+  }
+
+  #kofiEmbed {
     border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    letter-spacing: 0.5px;
+    overflow: hidden;
   }
 
-  .pill:hover, .pill.active {
-    background: rgba(201,168,76,0.12);
-    border-color: var(--gold);
-    color: var(--gold-light);
-  }
-
-  .input-group { margin-bottom: 16px; }
-
-  label {
+  #kofiframe {
     display: block;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    margin-bottom: 8px;
-  }
-
-  .input-wrap { position: relative; }
-
-  .prefix {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold);
-    font-size: 16px;
-    font-weight: 500;
-    pointer-events: none;
-  }
-
-  input[type="text"],
-  input[type="number"],
-  textarea {
+    border: none;
     width: 100%;
-    background: var(--surface2);
-    border: 1px solid rgba(201,168,76,0.15);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 300;
-    padding: 13px 16px;
-    border-radius: 2px;
-    outline: none;
-    transition: border-color 0.2s ease, background 0.2s ease;
-    -webkit-appearance: none;
+    background: #f9f9f9;
   }
-
-  input[type="number"] { padding-left: 32px; }
-
-  input:focus, textarea:focus {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.04);
-  }
-
-  textarea { resize: none; height: 88px; line-height: 1.6; }
-
-  input::placeholder, textarea::placeholder { color: var(--muted); font-style: italic; }
-
-  .pay-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-dim);
-    margin-bottom: 14px;
-    display: block;
-  }
-
-  .pay-btns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  /* KEY FIX: <a> tags so Safari treats navigation as a direct user gesture */
-  .pay-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 15px 12px;
-    border-radius: 2px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: opacity 0.15s ease;
-  }
-
-  .pay-btn:active { opacity: 0.75; }
-  .btn-cashapp { background: #00D632; color: #000; }
-  .btn-venmo   { background: #3D95CE; color: #fff; }
-  .pay-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-  .error-msg {
-    font-size: 12px;
-    color: #ff4466;
-    margin-top: 8px;
-    display: none;
-  }
-  .error-msg.show { display: block; }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-5px); }
-    40%, 80% { transform: translateX(5px); }
-  }
-  .shake { animation: shake 0.35s ease; }
-
-  .toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(16px);
-    background: var(--surface);
-    border: 1px solid var(--gold);
-    color: var(--text);
-    font-size: 13px;
-    padding: 13px 22px;
-    border-radius: 2px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 200;
-    max-width: 88vw;
-    text-align: center;
-    line-height: 1.5;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   .footer-note {
     text-align: center;
@@ -300,69 +159,14 @@
   </div>
 
   <div class="card">
-    <span class="section-label">Choose an amount</span>
-    <div class="pill-row" id="pills">
-      <button class="pill" data-val="10">$10</button>
-      <button class="pill active" data-val="25">$25</button>
-      <button class="pill" data-val="50">$50</button>
-      <button class="pill" data-val="100">$100</button>
-    </div>
-
-    <div class="input-group">
-      <label for="custom-amount">Or enter custom amount</label>
-      <div class="input-wrap">
-        <span class="prefix">$</span>
-        <input type="number" id="custom-amount" placeholder="0.00" min="1" step="1">
-      </div>
-      <div class="error-msg" id="amount-error">Please select or enter an amount first.</div>
-    </div>
-
-    <div class="input-group">
-      <label for="donor-name">Your name</label>
-      <input type="text" id="donor-name" placeholder="First & last name">
-    </div>
-
-    <div class="input-group">
-      <label for="donor-message">Leave a message <span style="color:var(--muted);font-style:italic;letter-spacing:0;text-transform:none;font-size:10px;">(optional)</span></label>
-      <textarea id="donor-message" placeholder="Say something kind for the crew…"></textarea>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="pay-label">Send your donation via</span>
-    <div class="pay-btns">
-
-      <!--
-        SAFARI FIX EXPLAINED:
-        Buttons are real <a> tags. The href is set synchronously on touchstart/mousedown —
-        before the click event fires. This is the only pattern Safari iOS allows for
-        programmatically setting a navigation destination. Any async delay (setTimeout,
-        Promise, etc.) causes Safari to block or show "address is invalid".
-      -->
-
-      <a id="btn-cashapp" class="pay-btn btn-cashapp" href="#" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="8" fill="#00D632"/>
-          <path d="M17.6 8l.7 2.6c1.5.4 2.7 1.1 3.5 2l-2 1.7c-.6-.7-1.5-1.2-2.5-1.4l-.3-.1c-1.1-.2-2.1 0-2.5.6-.2.3-.2.6 0 .9.2.3.6.5 1.3.7l1.5.4c1.4.4 2.4.9 3 1.7.6.8.7 1.8.3 2.9-.5 1.4-1.7 2.3-3.3 2.6l.7 2.4h-2.2l-.6-2.3c-1.7-.4-3.1-1.3-4-2.5l2-1.7c.7 1 1.8 1.6 3 1.8l.4.1c1.2.2 2.2-.1 2.7-.7.2-.3.2-.7 0-1-.2-.3-.7-.6-1.5-.8l-1.4-.4c-1.3-.4-2.2-.9-2.8-1.7-.6-.8-.7-1.8-.3-2.9.5-1.3 1.6-2.2 3.1-2.5L14.4 8H17.6Z" fill="black"/>
-        </svg>
-        Cash App
-      </a>
-
-      <a id="btn-venmo" class="pay-btn btn-venmo" href="#" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="8" fill="#3D95CE"/>
-          <path d="M22 9.5c.5.8.7 1.7.7 2.8 0 3.5-3 8.1-5.4 11.2h-5.6l-2.2-12 5-.5.9 7.3c.9-1.4 1.9-3.7 1.9-5.2 0-.8-.1-1.4-.4-1.9L22 9.5Z" fill="white"/>
-        </svg>
-        Venmo
-      </a>
-
+    <span class="section-label">Support The Work</span>
+    <div id="kofiEmbed">
+      <iframe id="kofiframe" src="https://ko-fi.com/blackarcdev/?hidefeed=true&widget=true&embed=true&preview=true" style="padding:4px;" height="680" title="blackarcdev"></iframe>
     </div>
   </div>
 
   <p class="footer-note">TNFC — professional carpet installation and repair.<br>Your generosity keeps our crew equipped and motivated. 🙏</p>
 </div>
-
-<div class="toast" id="toast"></div>
 
 <script>
 /* ---- CARPET CANVAS ---- */
@@ -410,88 +214,6 @@ function drawFibers() {
 window.addEventListener('resize', resize);
 resize();
 drawFibers();
-
-/* ---- PILL SELECTION ---- */
-let selectedAmount = 25;
-
-document.querySelectorAll('.pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    selectedAmount = parseInt(btn.dataset.val);
-    document.getElementById('custom-amount').value = '';
-    document.getElementById('amount-error').classList.remove('show');
-  });
-});
-
-document.getElementById('custom-amount').addEventListener('input', function () {
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-  selectedAmount = parseFloat(this.value) || 0;
-});
-
-/* ---- HELPERS ---- */
-function getAmount() {
-  const v = document.getElementById('custom-amount').value;
-  return v ? parseFloat(v) : selectedAmount;
-}
-
-function buildUrl(method, amount) {
-  const msg  = document.getElementById('donor-message').value.trim() || 'TNFC Donation';
-  const note = encodeURIComponent('TNFC Donation - ' + msg);
-  const amt  = amount.toFixed(2);
-  return method === 'cashapp'
-    ? `https://cash.app/$bray0/${amt}`
-    : `https://venmo.com/u/TNFCarpets?txn=pay&amount=${amt}&note=${note}`;
-}
-
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function showError() {
-  const err = document.getElementById('amount-error');
-  err.classList.add('show', 'shake');
-  setTimeout(() => err.classList.remove('shake'), 400);
-  document.getElementById('custom-amount').focus();
-}
-
-/* ---- SAFARI-SAFE LINK WIRING ----
-   The href MUST be set synchronously during touchstart/mousedown — before the
-   browser fires the click event. Setting href inside click (even synchronously)
-   is too late for Safari's popup/navigation security policy.
-   Using <a target="_blank"> also prevents Safari from blocking it as a popup.
-*/
-function wireBtn(id, method) {
-  const el = document.getElementById(id);
-
-  function prepare(e) {
-    const amount = getAmount();
-    if (!amount || amount < 1) {
-      e.preventDefault();
-      showError();
-      return;
-    }
-    el.href = buildUrl(method, amount);
-  }
-
-  el.addEventListener('touchstart', prepare, { passive: false });
-  el.addEventListener('mousedown',  prepare);
-
-  el.addEventListener('click', (e) => {
-    const amount = getAmount();
-    if (!amount || amount < 1) { e.preventDefault(); return; }
-    const name = document.getElementById('donor-name').value.trim() || 'Anonymous';
-    showToast(`Thanks, ${name}! Opening ${method === 'cashapp' ? 'Cash App' : 'Venmo'}…`);
-  });
-}
-
-wireBtn('btn-cashapp', 'cashapp');
-wireBtn('btn-venmo',   'venmo');
 </script>
 </body>
 </html>
